@@ -398,134 +398,7 @@ export default {
 
       }),
 
-      tableOptions: {
-        deferRender: true,
-        // stateSave: true,
-        responsive: true,
-        data: [],
-
-        columns: [
-          { data: 'domain' },
-          // {
-          //   title: 'Domain',
-          //   data: 'domain',
-          //   render: function (data, type) {
-          //     // return format(data, 'E dd/MM/yyyy H:mm O')
-          //     return `<a class="link link-primary">${data}</a>`
-          //   }
-          // },
-          {
-            title: 'Host',
-            data: 'host'
-          },
-          // {
-          //   title: 'Host',
-          //   data: 'host',
-          //   render: function (data, type) {
-          //     // return format(data, 'E dd/MM/yyyy H:mm O')
-          //     if (type === 'display') {
-          //       // return `<a class="link link-primary" v-on:click="addHost(${data})">${data}</a>`
-          //       return createElement('a', {
-          //         class: {
-          //           link: true,
-          //           'link-primary': true
-          //         },
-          //         on: {
-          //           click: this.addHost(data)
-          //         }
-          //
-          //       }, data)
-          //     } else {
-          //       return data
-          //     }
-          //   }
-          // },
-          // { data: 'range' },
-          {
-            title: 'Time',
-            data: 'timestamp',
-            render: function (data, type) {
-              // return format(data, 'E dd/MM/yyyy H:mm O')
-              if (type === 'display') {
-                return format(data, 'PPPP p', {locale: es})
-              } else {
-                return data
-              }
-            }
-          },
-          {
-            title: 'None',
-            data: 'none',
-            'width': '10%',
-            render: function (data, type) {
-              // return format(data, 'E dd/MM/yyyy H:mm O')
-              return `<div class="badge badge-success">${data}</div> `
-            }
-          },
-          {
-            title: 'Quarantine',
-            data: 'quarantine',
-            'width': '10%',
-            render: function (data, type) {
-              // return format(data, 'E dd/MM/yyyy H:mm O')
-              return `<div class="badge badge-warning">${data}</div> `
-            }
-          },
-          {
-            title: 'Reject',
-            data: 'reject',
-            'width': '10%',
-            render: function (data, type) {
-              // return format(data, 'E dd/MM/yyyy H:mm O')
-              return `<div class="badge badge-error">${data}</div> `
-            }
-          },
-        ],
-        'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
-        'columnDefs': [
-          // {
-          //   targets: [1, 2],
-          //   className: 'dt-center'
-          // },
-          {
-            targets: [1, 2],
-            className: 'dt-center'
-          },
-          // {
-          //   targets: [3, 4, 5],
-          //   className: 'dt-body-center'
-          // },
-          // {
-          //   // targets: -1,// not working
-          //   targets: [3, 4, 5],
-          //   className: 'dt-head-center'
-          // },
-          { 'visible': false, 'targets': 0 },
-          {
-            'targets': [3, 4, 5],
-            'searchable': false,
-            className: 'dt-body-center'
-          }
-          // { 'visible': false, 'targets': -1 }
-        ],
-        'order': [[ 2, 'desc' ], [ 0, 'asc' ]],
-        'displayLength': 10,
-        'drawCallback': function (settings) {
-          let api = this.api()
-          let rows = api.rows({page: 'current'}).nodes()
-          let last = null
-
-          api.column(0, {page: 'current'}).data().each(function (group, i) {
-            if (last !== group) {
-              $(rows).eq(i).before(
-                '<tr class="group"><td colspan="5">' + group + '</td></tr>'
-              )
-
-              last = group
-            }
-          })
-        }
-      },
+      tableOptions: {},
       height: '0px',
 
       // dmarc: [],
@@ -621,6 +494,142 @@ export default {
     }
   },
   created: function () {
+    let self = this
+    /**
+		* drawCallback needs to call "self.setReportID" so "tableOptions" are instantiated here
+		**/
+    this.tableOptions = {
+      deferRender: true,
+      // stateSave: true,
+      responsive: true,
+      data: [],
+
+      columns: [
+        { data: 'domain' },
+        // {
+        //   title: 'Domain',
+        //   data: 'domain',
+        //   render: function (data, type) {
+        //     // return format(data, 'E dd/MM/yyyy H:mm O')
+        //     return `<a class="link link-primary">${data}</a>`
+        //   }
+        // },
+        {
+          // title: 'Host',
+          data: 'id',
+          render: function (data, type, row, meta) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            if (type === 'display') {
+              // return `<a class="link link-primary open-item" href="javascript:void(0);" data-item-id=${row.id}>${data}</a>`
+              return `<button class="btn btn-ghost  open-item" data-item-id=${data}>
+								<!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+								<svg xmlns="http://www.w3.org/2000/svg" class="icon" data-item-id=${data} width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
+							</button>`
+            } else {
+              return data
+            }
+          }
+        },
+        {
+          title: 'Host',
+          data: 'host',
+        },
+        {
+          title: 'Time',
+          data: 'timestamp',
+          render: function (data, type, row, meta) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            if (type === 'display') {
+              // debug('table timestamp', row, meta)
+              return format(data, 'PPPP p', {locale: es})
+            } else {
+              return data
+            }
+          }
+        },
+        {
+          title: 'None',
+          data: 'none',
+          'width': '10%',
+          render: function (data, type) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            return `<div class="badge badge-success">${data}</div> `
+          }
+        },
+        {
+          title: 'Quarantine',
+          data: 'quarantine',
+          'width': '10%',
+          render: function (data, type) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            return `<div class="badge badge-warning">${data}</div> `
+          }
+        },
+        {
+          title: 'Reject',
+          data: 'reject',
+          'width': '10%',
+          render: function (data, type) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            return `<div class="badge badge-error">${data}</div> `
+          }
+        },
+      ],
+      'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+      'columnDefs': [
+        // {
+        //   targets: [1, 2],
+        //   className: 'dt-center'
+        // },
+        {
+          targets: [1, 2, 3],
+          className: 'dt-center'
+        },
+        // {
+        //   targets: [3, 4, 5],
+        //   className: 'dt-body-center'
+        // },
+        // {
+        //   // targets: -1,// not working
+        //   targets: [3, 4, 5],
+        //   className: 'dt-head-center'
+        // },
+        { 'visible': false, 'targets': 0 },
+        {
+          'targets': [4, 5, 6],
+          'searchable': false,
+          className: 'dt-body-center'
+        }
+        // { 'visible': false, 'targets': -1 }
+      ],
+      'order': [[ 2, 'desc' ], [ 0, 'asc' ]],
+      'displayLength': 10,
+      'drawCallback': function (settings) {
+        let els = document.getElementsByClassName('open-item')
+        debug('ELS', els)
+        Array.each(els, function (el) {
+          el.addEventListener('click', function (e) {
+            debug('open-item', e.target.dataset.itemId)
+            self.setReportID(e.target.dataset.itemId)
+          })
+        })
+
+        let api = this.api()
+        let rows = api.rows({page: 'current'}).nodes()
+        let last = null
+
+        api.column(0, {page: 'current'}).data().each(function (group, i) {
+          if (last !== group) {
+            $(rows).eq(i).before(
+              '<tr class="group"><td colspan="6">' + group + '</td></tr>'
+            )
+
+            last = group
+          }
+        })
+      }
+    }
+
     let allow_filters = /(host|domain)/
     Object.each(this.$route.query, function (data, prop) {
       if (allow_filters.test(prop)) {
@@ -636,7 +645,7 @@ export default {
       }
     }.bind(this))
 
-    if (this.$route.query.id && this.$route.query.id !== 'undefined') { this.report_id = this.$route.query.id }
+    if (this.$route.query.report_id && this.$route.query.report_id !== 'undefined') { this.report_id = this.$route.query.report_id }
 
     if (this.$route.query.start_time && this.$route.query.start_time !== 'undefined') { this.start_time = this.$route.query.start_time * 1 }
 
@@ -685,8 +694,11 @@ export default {
   watch: {
     report: function (val) {
       let container = document.getElementById('JsonViewer')
-      debug('watch report', container, JSON.parse(JSON.stringify(val)), this.$refs)
+      debug('watch report', container)
       if (container !== null && container !== undefined) {
+        while (container.lastElementChild) {
+          container.removeChild(container.lastElementChild)
+        }
         let viewer = new JsonViewer({
           container: container,
           data: JSON.stringify(val.data.records),
@@ -885,7 +897,7 @@ export default {
     setReportID: function (id) {
       debug('setReportID', id)
       this.report_id = id
-      this.$router.replace({ query: { ...this.$route.query, id: this.report_id}}).catch(err => { debug('setDates', err) })
+      this.$router.replace({ query: { ...this.$route.query, report_id: this.report_id}}).catch(err => { debug('setDates', err) })
 
       if (id !== undefined) { this.$options.pipelines[this.id].fireEvent('onOnce') }
     },
