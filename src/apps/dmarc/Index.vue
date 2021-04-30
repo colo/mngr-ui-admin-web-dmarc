@@ -8,10 +8,7 @@
     <h1 class="md:text-3xl text-2xl font-medium title-font text-gray-900">Master Cleanse Reliac Heirloom</h1>
   </div> -->
 
-	<!-- {{Object.keys(filters)}}
-	Hosts: {{ (filters.host.length === 0 ) ? 'All' : filters.host.join(',')}} -->
-
-  <div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
+	<div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
 
 		<div class="z-50 relative inline-block text-left dropdown">
 			<span class="rounded-md shadow-sm">
@@ -123,6 +120,7 @@
   </div>
 </div>
 <!-- </section> -->
+<template v-if="report_id === undefined">
 		<div class="grid grid-cols-3 gap-4">
 			<div class="card shadow-lg">
 				<figure>
@@ -226,6 +224,21 @@
 					</div>
 				</div>
 			</div>
+</template>
+
+	<div class="card shadow-lg" v-show="report !== undefined && report_id !== undefined">
+		<div class="card-body">
+			<div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
+				<button class="btn btn-circle btn-xs" v-on:click="setReportID(undefined)">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+			<div id="JsonViewer">
+			</div>
+		</div>
+	</div>
 
 			<!-- </div> -->
 		<!-- </section> -->
@@ -299,6 +312,8 @@ import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import 'flatpickr/dist/themes/material_blue.css'
 
+import JsonViewer from 'json-viewer-js'
+
 export default {
   mixins: [DataSourcesMixin, DashboardMixin],
   name: 'AppDmarc',
@@ -329,6 +344,8 @@ export default {
   data () {
     return {
       // datepicker
+      report_id: undefined,
+      report: undefined,
       DAY: DAY,
       date: null,
       datePickerMinDate: 0,
@@ -619,6 +636,8 @@ export default {
       }
     }.bind(this))
 
+    if (this.$route.query.id && this.$route.query.id !== 'undefined') { this.report_id = this.$route.query.id }
+
     if (this.$route.query.start_time && this.$route.query.start_time !== 'undefined') { this.start_time = this.$route.query.start_time * 1 }
 
     if (this.$route.query.current_time && this.$route.query.current_time !== 'undefined') {
@@ -627,8 +646,55 @@ export default {
       this.current_time = Date.now()
     }
   },
-
+  mounted: function () {
+    // const testJson = `{
+    // "example1": [
+    //   {
+    //       "name": "test01",
+    //       "age": 18,
+    //       "gender": 0,
+    //       "student": true,
+    //       "children": null
+    //   },
+    //   {
+    //       "name": "test02",
+    //       "age": 19,
+    //       "gender": 1,
+    //       "student": true,
+    //       "children": null
+    //   }
+    // ],
+    // "example2": {
+    //   "friuts": ["apple", "grape", "jujube", "pear"],
+    //   "transport": ["taxi", "bus", "metro", "plane", "train"]
+    // }
+    // }`
+    debug('mounted', this.report)
+    if (this.report !== undefined) {
+      let container = document.getElementById('JsonViewer')
+      if (container !== null && container !== undefined) {
+        let viewer = new JsonViewer({
+          container: container,
+          data: JSON.stringify(val.data.records),
+          theme: 'light',
+          expand: true
+        })
+      }
+    }
+  },
   watch: {
+    report: function (val) {
+      let container = document.getElementById('JsonViewer')
+      debug('watch report', container, JSON.parse(JSON.stringify(val)), this.$refs)
+      if (container !== null && container !== undefined) {
+        let viewer = new JsonViewer({
+          container: container,
+          data: JSON.stringify(val.data.records),
+          theme: 'light',
+          expand: true
+        })
+      }
+    },
     'filters.host': function (val) {
       debug('filters.host', val)
       // if (this.filters_debounce.host.ts + 1000 < Date.now()) {
@@ -816,6 +882,13 @@ export default {
   },
   methods: {
     roundHours: roundHours,
+    setReportID: function (id) {
+      debug('setReportID', id)
+      this.report_id = id
+      this.$router.replace({ query: { ...this.$route.query, id: this.report_id}}).catch(err => { debug('setDates', err) })
+
+      if (id !== undefined) { this.$options.pipelines[this.id].fireEvent('onOnce') }
+    },
     setDates: function (dates) {
       // debug('setDates', dates)
       if (dates.length > 1 && dates[0].getTime() !== dates[1].getTime()) {
