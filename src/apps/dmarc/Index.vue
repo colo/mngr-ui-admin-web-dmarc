@@ -235,6 +235,7 @@
 					</svg>
 				</button>
 			</div>
+			<data-table id="reportTable" :options="reportTableOptions" :dataSet="reportTableData" :groupColumn="0" />
 			<div id="JsonViewer">
 			</div>
 		</div>
@@ -245,7 +246,7 @@
 
 		<div class="card shadow-lg">
 			<div class="card-body">
-				<data-table :options="tableOptions" :dataSet="tableData" :groupColumn="0" />
+				<data-table id="rangeReportsTable" :options="tableOptions" :dataSet="tableData" :groupColumn="0" />
 			</div>
 		</div>
 
@@ -399,6 +400,10 @@ export default {
       }),
 
       tableOptions: {},
+
+      reportTableData: [],
+      reportTableOptions: {},
+
       height: '0px',
 
       // dmarc: [],
@@ -630,6 +635,72 @@ export default {
       }
     }
 
+    this.reportTableOptions = {
+      deferRender: true,
+      // stateSave: true,
+      responsive: true,
+      data: [],
+
+      columns: [
+        {
+          data: 'disposition',
+          title: 'Disposition',
+          'width': '10%',
+          render: function (data, type) {
+            if (type === 'display') {
+              let badge = (data === 'none') ? 'badge-success' : (data === 'quarantine') ? 'badge-warning' : 'badge-error'
+              return `<div class="badge ${badge}">${data}</div> `
+            } else {
+              return data
+            }
+          }
+        },
+        { data: 'ip', title: 'IP' },
+        { data: 'count', title: 'Count' },
+        { data: 'identifiers', title: 'Identifiers' },
+        { data: 'dkim_domain', title: 'DKIM Domain' },
+        { data: 'dkim_selector', title: 'DKIM Selector' },
+        {
+          data: 'dkim_result',
+          title: 'DKIM Result',
+          'width': '10%',
+          render: function (data, type) {
+            if (type === 'display') {
+              let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
+              return `<div class="badge ${badge}">${data}</div> `
+            } else {
+              return data
+            }
+          }
+        },
+        { data: 'spf_domain', title: 'SPF Domain' },
+        {
+          data: 'spf_result',
+          title: 'SPF Result',
+          'width': '10%',
+          render: function (data, type) {
+            if (type === 'display') {
+              let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
+              return `<div class="badge ${badge}">${data}</div> `
+            } else {
+              return data
+            }
+          }
+        },
+
+      ],
+
+      'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+      'columnDefs': [
+        {
+          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+          className: 'dt-center'
+        },
+      ],
+      'order': [[ 2, 'desc' ]],
+      'displayLength': 10,
+    }
+
     let allow_filters = /(host|domain)/
     Object.each(this.$route.query, function (data, prop) {
       if (allow_filters.test(prop)) {
@@ -694,7 +765,27 @@ export default {
   watch: {
     report: function (val) {
       let container = document.getElementById('JsonViewer')
-      debug('watch report', container)
+      debug('watch report', container, val)
+      this.reportTableData = []
+
+      Object.each(val.data.records, function (data, disposition) {
+        Array.each(data, function (row) {
+          let reg = {
+            disposition: disposition,
+            count: row.count,
+            ip: row.ip,
+            identifiers: JSON.stringify(row.identifiers),
+            'dkim_domain': (row.results.dkim && row.results.dkim.domain) ? row.results.dkim.domain : '-',
+            'dkim_selector': (row.results.dkim && row.results.dkim.selector) ? row.results.dkim.selector : '-',
+            'dkim_result': (row.results.dkim && row.results.dkim.result) ? row.results.dkim.result : '-',
+            'spf_domain': (row.results.spf && row.results.spf.domain) ? row.results.spf.domain : '-',
+            'spf_result': (row.results.spf && row.results.spf.result) ? row.results.spf.result : '-',
+          }
+
+          this.reportTableData.push(reg)
+        }.bind(this))
+      }.bind(this))
+
       if (container !== null && container !== undefined) {
         while (container.lastElementChild) {
           container.removeChild(container.lastElementChild)
@@ -703,7 +794,7 @@ export default {
           container: container,
           data: JSON.stringify(val.data.records),
           theme: 'light',
-          expand: true
+          expand: false
         })
       }
     },
