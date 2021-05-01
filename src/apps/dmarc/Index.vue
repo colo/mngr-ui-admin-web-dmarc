@@ -1,4 +1,4 @@
-<template>
+doc<template>
 	<div class="container mx-auto py-6 px-4">
 <!-- https://tailwindcomponents.com/component/pure-css-dropdown-using-focus-within-with-animation -->
 <!-- <section class="text-gray-600 body-font"> -->
@@ -235,7 +235,33 @@
 					</svg>
 				</button>
 			</div>
-			<data-table id="reportTable" :options="reportTableOptions" :dataSet="reportTableData" :groupColumn="0" />
+
+			<div class="md:p-8 p-6 bg-white flex justify-between dark:bg-gray-800 md:items-center md:flex-row flex-col gap-12">
+				<div>
+					<span class="text-bold text-gray-700 dark:text-gray-400 block">
+						{{report_email}}
+					</span>
+					<span class="text-yellow-500 text-4xl md:text-5xl mt-2 font-black block">
+						{{report_org}}
+					</span>
+				</div>
+				<div class="self-end">
+					<div class="md:text-right text-left md:block">
+						<p class="text-xl md:mb-2 mb-0 dark:text-gray-100 flex items-center increase">
+							<!-- <svg width="20" height="20" fill="currentColor" class="h-6 w-6 text-red-500 mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+							<path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+							</path>
+							</svg> -->
+							{{report_domain}}
+						</p>
+					</div>
+					<p class="text-lg text-gray-600 md:text-right text-left dark:text-gray-400 md:block inline-block md:mb-0">
+						{{ report_policy }}
+					</p>
+				</div>
+			</div>
+
+			<data-table id="reportTable" :options="reportTableOptions" :dataSet="reportTableData" />
 			<div id="JsonViewer">
 			</div>
 		</div>
@@ -361,6 +387,7 @@ export default {
         host: []
       },
 
+      servers: [],
       hosts: [],
       domains: [],
 
@@ -401,6 +428,10 @@ export default {
 
       tableOptions: {},
 
+      report_policy: '',
+      report_domain: '',
+      report_email: '',
+      report_org: '',
       reportTableData: [],
       reportTableOptions: {},
 
@@ -472,10 +503,10 @@ export default {
       dmarc_info: [],
       dmarc_data: [],
 
-      top: 5,
+      // top: 5,
 
-      refresh: SECOND * 5,
-      period: 'DAY',
+      refresh: MINUTE,
+      period: 'daily',
 
       // // chart: Object.merge(chartConfig, {skip: 5}),
       // /**
@@ -655,7 +686,21 @@ export default {
             }
           }
         },
-        { data: 'ip', title: 'IP' },
+        {
+          data: 'ip',
+          title: 'IP',
+          render: function (data, type) {
+            if (type === 'display') {
+              if (data.ip && data.host) {
+                return `<div class="badge badge-info">${data.host}</div> ${data.ip}`
+              } else {
+                return data.ip
+              }
+            } else {
+              return data.ip
+            }
+          }
+        },
         { data: 'count', title: 'Count' },
         { data: 'identifiers', title: 'Identifiers' },
         { data: 'dkim_domain', title: 'DKIM Domain' },
@@ -763,17 +808,44 @@ export default {
     }
   },
   watch: {
-    report: function (val) {
+    report: function (doc) {
       let container = document.getElementById('JsonViewer')
-      debug('watch report', container, val)
+      debug('watch report', container, doc)
       this.reportTableData = []
+      this.report_domain = doc.data.policy.domain
+      this.report_policy = `adkim: ${doc.data.policy.adkim} | aspf: ${doc.data.policy.aspf} | p: ${doc.data.policy.p} | pct: ${doc.data.policy.pct} | sp: ${doc.data.policy.sp}`
+      this.report_email = doc.data.report.email
+      this.report_org = doc.data.report.org
 
-      Object.each(val.data.records, function (data, disposition) {
+      Object.each(doc.data.records, function (data, disposition) {
         Array.each(data, function (row) {
+          let ip = row.ip
+          let ip_record = {ip: ip, host: undefined}
+          if (this.servers.length > 0) {
+            Array.each(this.servers, function (server) {
+              let server_ips = []
+              Object.each(server.data.networkInterfaces, function (iface) {
+                if (Array.isArray(iface)) {
+                  Array.each(iface, function (_if) {
+                    server_ips.push(_if.address)
+                  })
+                } else {
+                  Array.each(iface.if, function (_if) {
+                    server_ips.push(_if.address)
+                  })
+                }
+              })
+
+              if (server_ips.contains(ip)) {
+                ip_record.host = server.metadata.host
+              }
+            })
+          }
+
           let reg = {
             disposition: disposition,
             count: row.count,
-            ip: row.ip,
+            ip: ip_record,
             identifiers: JSON.stringify(row.identifiers),
             'dkim_domain': (row.results.dkim && row.results.dkim.domain) ? row.results.dkim.domain : '-',
             'dkim_selector': (row.results.dkim && row.results.dkim.selector) ? row.results.dkim.selector : '-',
@@ -792,7 +864,7 @@ export default {
         }
         let viewer = new JsonViewer({
           container: container,
-          data: JSON.stringify(val.data.records),
+          data: JSON.stringify(doc.data),
           theme: 'light',
           expand: false
         })
@@ -997,10 +1069,10 @@ export default {
       if (dates.length > 1 && dates[0].getTime() !== dates[1].getTime()) {
         debug('setDates both', dates)
         this.start_time = dates[0].getTime()
-        this.current_time = dates[1].getTime() + DAY // + DAY to include full day on selected day
+        this.current_time = dates[1].getTime() + DAY - MINUTE// + DAY to include full day on selected day
       } else {
         debug('setDates current', dates)
-        this.current_time = dates[0].getTime() + DAY // + DAY to include full day on selected day
+        this.current_time = dates[0].getTime() + DAY - MINUTE// + DAY to include full day on selected day
         this.start_time = undefined
       }
 
