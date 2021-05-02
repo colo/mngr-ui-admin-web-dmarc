@@ -1224,7 +1224,7 @@ export default {
 
             // type: 'minute', // second || minute || hour || day || once
             requests: {
-              periodical: 5000,
+              periodical: this.refresh,
               // periodical: function (dispatch) {
               //   // return cron.schedule('14,29,44,59 * * * * *', dispatch);//every 15 secs
               //   return cron.schedule('*/10 * * * * *', dispatch)// every 20 secs
