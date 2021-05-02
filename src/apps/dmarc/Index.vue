@@ -694,7 +694,7 @@ export default {
               if (data.ip && data.host) {
                 return `<div class="badge badge-info">${data.host}</div> ${data.ip}`
               } else {
-                return data.ip
+                return `<a class="link link-primary underline" href="https://mxtoolbox.com/SuperTool.aspx?action=ptr:${data.ip}&run=toolpage" target="_blank">${data.ip}</a>`
               }
             } else {
               return data.ip
