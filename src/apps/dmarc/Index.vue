@@ -123,7 +123,9 @@ doc<template>
 <template v-if="report_id === undefined">
 		<div class="grid grid-cols-3 gap-4">
 			<div class="card shadow-lg">
-				<figure>
+				<!-- <figure>
+				</figure> -->
+				<div class="card-body">
 					<chart-tabular
 						id="domainsPieFrappe"
 						:wrapper="{
@@ -140,8 +142,6 @@ doc<template>
 
 					>
 					</chart-tabular>
-				</figure>
-				<div class="card-body">
 					<h2 class="card-title">Domains
 						<div class="badge mx-2 badge-primary">{{ formatMinStats(total_domains_count) }}</div>
 					</h2>
@@ -150,7 +150,9 @@ doc<template>
 			</div>
 
 			<div class="card shadow-lg">
-				<figure>
+				<!-- <figure>
+				</figure> -->
+				<div class="card-body">
 					<chart
 						id="hostsPieFrappe"
 						:wrapper="{
@@ -166,8 +168,6 @@ doc<template>
 						:buffer="false"
 					>
 					</chart>
-				</figure>
-				<div class="card-body">
 					<h2 class="card-title">Hosts
 						<div class="badge mx-2 badge-primary">{{ formatMinStats(total_hosts_count) }}</div>
 					</h2>
@@ -175,7 +175,7 @@ doc<template>
 			</div>
 
 			<div class="card shadow-lg">
-				<figure>
+				<div class="card-body">
 					<chart
 						id="dispositionPieFrappe"
 						:wrapper="{
@@ -191,8 +191,6 @@ doc<template>
 						:buffer="false"
 					>
 					</chart>
-				</figure>
-				<div class="card-body">
 					<h2 class="card-title">Total dispositions
 					<div class="badge mx-2 badge-primary">{{ formatMinStats(total_diposition_count) }}</div>
 					</h2>
@@ -229,11 +227,16 @@ doc<template>
 	<div class="card shadow-lg" v-show="report !== undefined && report_id !== undefined">
 		<div class="card-body">
 			<div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
-				<button class="btn btn-circle btn-xs" v-on:click="setReportID(undefined)">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+				<button class="btn btn-ghost btn-circle" v-on:click="setReportID(undefined)">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 					</svg>
 				</button>
+				<!-- <button class="btn btn-circle btn-xs" v-on:click="setReportID(undefined)">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button> -->
 			</div>
 
 			<div class="md:p-8 p-6 bg-white flex justify-between dark:bg-gray-800 md:items-center md:flex-row flex-col gap-12">
@@ -241,13 +244,13 @@ doc<template>
 					<span class="text-bold text-gray-700 dark:text-gray-400 block">
 						{{report_email}}
 					</span>
-					<span class="text-yellow-500 text-4xl md:text-5xl mt-2 font-black block">
+					<span class="text-yellow-500 text-4xl md:text-4xl mt-2 font-black block">
 						{{report_org}}
 					</span>
 				</div>
 				<div class="self-end">
 					<div class="md:text-right text-left md:block">
-						<p class="text-xl md:mb-2 mb-0 dark:text-gray-100 flex items-center increase">
+						<p class="text-info text-xl md:mb-2 mb-0 dark:text-gray-100 flex items-center increase">
 							<!-- <svg width="20" height="20" fill="currentColor" class="h-6 w-6 text-red-500 mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
 							<path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
 							</path>
@@ -418,9 +421,9 @@ export default {
           /* title: 'My Awesome Chart', */
           data: {
           },
-          type: 'donut', // or 'bar', 'line', 'scatter', 'pie', 'percentage'
+          type: 'percentage', // or 'bar', 'line', 'scatter', 'pie', 'percentage'
           maxSlices: 6,
-          /* height: 400, */
+          // height: 250
           /* colors: ['#7cd6fd', '#743ee2'] */
         }
 
