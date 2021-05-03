@@ -972,6 +972,7 @@ export default {
       this.total_records_count = 0
       this.total_ips = []
       this.domainsPieLabels = []
+      this.total_diposition_count = 0
 
       Array.each(val, function (row) {
         let domain = row.metadata.domain
