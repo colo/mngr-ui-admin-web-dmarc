@@ -509,7 +509,7 @@ export default {
       // top: 5,
 
       refresh: MINUTE,
-      period: 'daily',
+      period: 'day',
 
       // // chart: Object.merge(chartConfig, {skip: 5}),
       // /**
