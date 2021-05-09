@@ -1,4 +1,4 @@
-doc<template>
+<template>
 	<div class="container mx-auto py-6 px-4">
 <!-- https://tailwindcomponents.com/component/pure-css-dropdown-using-focus-within-with-animation -->
 <!-- <section class="text-gray-600 body-font"> -->
@@ -275,7 +275,7 @@ doc<template>
 
 		<div class="card shadow-lg">
 			<div class="card-body">
-				<data-table id="rangeReportsTable" :options="tableOptions" :dataSet="tableData" :groupColumn="0" />
+				<data-table id="rangeReportsTable" :options="rangeReportsTableOptions" :dataSet="rangeReportsTableData" :groupColumn="0" />
 			</div>
 		</div>
 
@@ -429,7 +429,7 @@ export default {
 
       }),
 
-      tableOptions: {},
+      rangeReportsTableOptions: {},
 
       report_policy: '',
       report_domain: '',
@@ -535,9 +535,9 @@ export default {
   created: function () {
     let self = this
     /**
-		* drawCallback needs to call "self.setReportID" so "tableOptions" are instantiated here
+		* drawCallback needs to call "self.setReportID" so "rangeReportsTableOptions" are instantiated here
 		**/
-    this.tableOptions = {
+    this.rangeReportsTableOptions = {
       deferRender: true,
       // stateSave: true,
       responsive: true,
@@ -1030,7 +1030,7 @@ export default {
     }
   },
   computed: {
-    tableData: function () {
+    rangeReportsTableData: function () {
       let data = []
       Array.each(this.dmarc_data, function (report, index) {
         let _data = Object.merge(report.metadata, {
@@ -1040,7 +1040,7 @@ export default {
         })
         data.push(_data)
       })
-      debug('computed tableData', this.dmarc_data, data)
+      debug('computed rangeReportsTableData', this.dmarc_data, data)
       return data
     },
 

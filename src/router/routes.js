@@ -9,6 +9,7 @@
 * https://forum.vuejs.org/t/this-route-only-returns-null-in-app-vue/64006/3
 **/
 import Index from '@apps/dmarc/Index.vue'
+// import Hosts from '@apps/hosts/Index.vue'
 import Error from '../views/Error.vue'
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     component: Index
     // meta: { layout: 'VerticalLayout' },
 
+  },
+  {
+    path: '/hosts',
+    name: 'hosts',
+    component: () => import('@apps/hosts/Index.vue'),
   },
   // Always leave this as last one,
   // but you can also remove it
