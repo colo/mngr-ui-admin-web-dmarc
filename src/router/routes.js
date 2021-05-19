@@ -27,6 +27,19 @@ const routes = [
     name: 'hosts',
     component: () => import('@apps/hosts/Index.vue'),
   },
+  {
+    path: '/educativa',
+    name: 'Educativa',
+    redirect: { name: 'EducativaSize' },
+    component: () => import('@apps/educativa/Index.vue'),
+    children: [
+      {
+        path: 'size',
+        name: 'EducativaSize',
+        component: () => import('@apps/educativa/size/Index.vue'),
+      },
+    ]
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

@@ -1,18 +1,18 @@
 'use strict'
 
 export default [
-  {
-    scheme: 'ws',
-    host: 'localhost',
-    port: 8080,
-    io: { forceNew: false, transports: ['websocket'] }
-  },
   // {
   //   scheme: 'ws',
-  //   host: 'ui.infraestructura.educativa.org',
-  //   port: 10080,
+  //   host: 'localhost',
+  //   port: 8080,
   //   io: { forceNew: false, transports: ['websocket'] }
   // },
+  {
+    scheme: 'ws',
+    host: 'dmarc.infraestructura.educativa.org',
+    port: 80,
+    io: { forceNew: false, transports: ['websocket'] }
+  },
   // {
   //   scheme: 'http',
   //   // host: 'localhost',
