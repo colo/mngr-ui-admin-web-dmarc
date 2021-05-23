@@ -265,7 +265,7 @@
 
 <script>
 import * as Debug from 'debug'
-const debug = Debug('apps:educativa:size:installs')
+const debug = Debug('apps:educativa:size:emails')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 import JSPipeline from '../../../../../modules/js-pipeline'
@@ -427,9 +427,9 @@ export default {
       * dataSources
       **/
       store: false,
-      pipeline_id: ['input.educativa.size.installs.periodical'],
+      pipeline_id: ['input.educativa.size.emails.periodical'],
 
-      id: 'input.educativa.size.installs.periodical',
+      id: 'input.educativa.size.emails.periodical',
       path: 'all',
 
       // host: 'perseus',
@@ -525,8 +525,8 @@ export default {
 
       columns: [
         // { title: 'Domain', data: 'domain' },
-        { title: 'User', data: 'user' },
-        { title: 'Install', data: 'install' },
+        { data: 'user' },
+        { title: 'Account', data: 'install' },
         // {
         //   title: 'Domain',
         //   data: 'domain',
@@ -608,9 +608,9 @@ export default {
               let badge = 'badge-success'
               // if (data > 1099511627776) { // Terabyte
               //   badge = 'badge-error'
-              if (data > 1073741824 * 500) { // 200GB
+              if (data > 1073741824 * 10) { // 10GB
                 badge = 'badge-error'
-              } else if (data > 1073741824 * 200) { // 200GB
+              } else if (data > 1073741824) { // 1GB
                 badge = 'badge-warning'
               }
 
@@ -623,8 +623,9 @@ export default {
       ],
       'lengthMenu': [[15, 25, 50, -1], [15, 25, 50, 'All']],
       'columnDefs': [
+        { 'visible': false, 'targets': 0 },
         {
-          targets: [0, 1, 2, 3, 4],
+          targets: [1, 2, 3, 4],
           className: 'dt-center'
         },
         // { 'visible': false, 'targets': 0 },
@@ -634,32 +635,33 @@ export default {
         //   className: 'dt-body-center'
         // }
       ],
-      'order': [ 3, 'desc'],
+      // 'order': [ 3, 'desc'],
+      'order': [[ 0, 'asc' ], [ 4, 'desc' ]],
       'displayLength': 15,
-      // 'drawCallback': function (settings) {
-      //   let els = document.getElementsByClassName('open-item')
-      //   debug('ELS', els)
-      //   Array.each(els, function (el) {
-      //     el.addEventListener('click', function (e) {
-      //       debug('open-item', e.target.dataset.itemId)
-      //       self.setReportID(e.target.dataset.itemId)
-      //     })
-      //   })
-      //
-      //   let api = this.api()
-      //   let rows = api.rows({page: 'current'}).nodes()
-      //   let last = null
-      //
-      //   api.column(0, {page: 'current'}).data().each(function (group, i) {
-      //     if (last !== group) {
-      //       $(rows).eq(i).before(
-      //         '<tr class="group"><td colspan="6">' + group + '</td></tr>'
-      //       )
-      //
-      //       last = group
-      //     }
-      //   })
-      // }
+      'drawCallback': function (settings) {
+        // let els = document.getElementsByClassName('open-item')
+        // debug('ELS', els)
+        // Array.each(els, function (el) {
+        //   el.addEventListener('click', function (e) {
+        //     debug('open-item', e.target.dataset.itemId)
+        //     self.setReportID(e.target.dataset.itemId)
+        //   })
+        // })
+
+        let api = this.api()
+        let rows = api.rows({page: 'current'}).nodes()
+        let last = null
+
+        api.column(0, {page: 'current'}).data().each(function (group, i) {
+          if (last !== group) {
+            $(rows).eq(i).before(
+              '<tr class="group"><td colspan="4">' + group + '</td></tr>'
+            )
+
+            last = group
+          }
+        })
+      }
     }
 
     // this.reportTableOptions = {

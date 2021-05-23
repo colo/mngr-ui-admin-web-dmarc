@@ -44,6 +44,11 @@ const routes = [
             name: 'EducativaSizeInstalls',
             component: () => import('@apps/educativa/size/installs/Index.vue'),
           },
+          {
+            path: 'emails',
+            name: 'EducativaSizeEmails',
+            component: () => import('@apps/educativa/size/emails/Index.vue'),
+          },
         ]
       },
     ]

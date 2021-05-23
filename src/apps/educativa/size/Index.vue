@@ -4,6 +4,26 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
+		<div class="container mx-auto py-6 px-4">
+			<div class="btn-group">
+				<router-link
+				:to="{name: 'EducativaSizeInstalls'}"
+				custom
+				v-slot="{ href, route, navigate, isActive, isExactActive }"
+				>
+					<button @click="navigate" class="btn" :class="(isActive) ? 'btn-active': '' ">Installs</button>
+				</router-link>
+
+				<router-link
+				:to="{name: 'EducativaSizeEmails'}"
+				custom
+				v-slot="{ href, route, navigate, isActive, isExactActive }"
+				>
+					<button @click="navigate" class="btn" :class="(isActive) ? 'btn-active': '' ">Emails</button>
+				</router-link>
+
+			</div>
+		</div>
     <router-view/>
   </div>
 	<!-- <dmarc-app/> -->
