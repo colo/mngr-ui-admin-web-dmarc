@@ -310,13 +310,13 @@ import Treemap from '@components/Treemap'
 
 const formatSize = function (val) {
   if (val > 1099511627776) {
-    val = Math.round(val / 1099511627776) + 'Tb'
+    val = (val / 1099511627776).toFixed(2) + ' Tb'
   } else if (val > 1073741824) {
-    val = Math.round(val / 1073741824) + 'Gb'
+    val = (val / 1073741824).toFixed(2) + 'Gb'
   } else if (val > 1048576) {
-    val = Math.round(val / 1048576) + 'Mb'
+    val = (val / 1048576).toFixed(2) + ' Mb'
   } else if (val > 1024) {
-    val = Math.round(val / 1024) + 'Kb'
+    val = (val / 1024).toFixed(2) + ' Kb'
   } else {
     val += 'B'
   }

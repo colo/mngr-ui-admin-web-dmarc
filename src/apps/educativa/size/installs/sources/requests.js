@@ -26,11 +26,11 @@ const generic_callback = function (data, metadata, key, vm) {
   } else if (key === 'educativa.size.installs.info') {
     // size_info_callback(data, metadata, key, vm)
     vm.size_info = data.educativa
+  } else if (key === 'educativa.size.installs.first') {
+    // debug('GENERIC CALLBACK data FIRST %s %o', key, data, metadata)
+    vm.datePickerMinDate = data.educativa[0].metadata.timestamp
   }
-  // else if (key === 'educativa.size.installs.first') {
-  //   // debug('GENERIC CALLBACK data FIRST %s %o', key, data, metadata)
-  //   vm.datePickerMinDate = data.educativa[0].metadata.timestamp
-  // } else if (key === 'educativa.size.installs.report') {
+  // else if (key === 'educativa.size.installs.report') {
   //   debug('GENERIC CALLBACK data REPORT %s %o', key, data, metadata)
   //   // dmarc_info_callback(data, metadata, key, vm)
   //   // if (data.dmarc[0].metadata.timestamp * 1 !== vm.datePickerMinDate * 1) { vm.datePickerMinDate = data.dmarc[0].metadata.timestamp }
@@ -164,89 +164,89 @@ const size_info = {
 
 }
 
-// const size_first = {
-//   params: function (_key, vm) {
-//     debug('PERIODICAL educativa.size.installs_first %o %o', _key, vm)
-//
-//     // const MINUTE = 60000
-//
-//     let source
-//     let key
-//
-//     if (!_key) {
-//       // key = ['host.first', 'config.range', 'minute.range']
-//       key = ['educativa.size.installs.first'] //, 'minute.range'
-//     }
-//
-//     let filter = [
-//       "this.r.row('metadata')('path').eq('educativa.size.installs')"
-//     ]
-//
-//     if (vm.filters && Object.getLength(vm.filters) > 0) {
-//       Object.each(vm.filters, function (data, prop) {
-//         if (!Array.isArray(data)) data = []
-//
-//         let _filter
-//         Array.each(data, function (value) {
-//           if (_filter === undefined) {
-//             _filter = "this.r.row('metadata')('" + prop + "').eq('" + value + "')"
-//           } else {
-//             _filter += ".or(this.r.row('metadata')('" + prop + "').eq('" + value + "')"
-//           }
-//         })
-//
-//         if (data.length > 1) { // close each 'or'
-//           Array.each(data, function (value, index) {
-//             if (index < data.length - 1) { _filter += ')' }
-//           })
-//         }
-//         filter.push(_filter)
-//       })
-//     }
-//
-//     debug('educativa.size.installs_first FILTER ', filter)
-//
-//     if (
-//       _key
-//     ) {
-//       switch (_key) {
-//         case 'educativa.size.installs.first':
-//           source = [{
-//             params: { id: _key },
-//             // path: 'all',
-//             // range: 'posix ' + roundHours(Date.now() - DAY) + '-' + roundMilliseconds(Date.now()) + '/*',
-//             query: {
-//               'from': 'educativa',
-//               'index': false,
-//               /**
-//               * right now needed to match OUTPUT 'id' with this query (need to @fix)
-//               **/
-//               'q': [
-//                 {'metadata': ['timestamp']}
-//               ],
-//               'transformation': [
-//                 {
-//                   'orderBy': { 'index': 'r.asc(timestamp)' },
-//                 },
-//                 {
-//                   limit: 1
-//                 }
-//               ],
-//               'filter': filter
-//
-//             }
-//           }]
-//           break
-//       }
-//     }
-//
-//     // debug('dmarc_first ', key, source)
-//
-//     return { key, source }
-//   },
-//   callback: generic_callback
-//
-// }
+const size_first = {
+  params: function (_key, vm) {
+    debug('PERIODICAL educativa.size.installs_first %o %o', _key, vm)
+
+    // const MINUTE = 60000
+
+    let source
+    let key
+
+    if (!_key) {
+      // key = ['host.first', 'config.range', 'minute.range']
+      key = ['educativa.size.installs.first'] //, 'minute.range'
+    }
+
+    let filter = [
+      "this.r.row('metadata')('path').eq('educativa.size.installs')"
+    ]
+
+    if (vm.filters && Object.getLength(vm.filters) > 0) {
+      Object.each(vm.filters, function (data, prop) {
+        if (!Array.isArray(data)) data = []
+
+        let _filter
+        Array.each(data, function (value) {
+          if (_filter === undefined) {
+            _filter = "this.r.row('metadata')('" + prop + "').eq('" + value + "')"
+          } else {
+            _filter += ".or(this.r.row('metadata')('" + prop + "').eq('" + value + "')"
+          }
+        })
+
+        if (data.length > 1) { // close each 'or'
+          Array.each(data, function (value, index) {
+            if (index < data.length - 1) { _filter += ')' }
+          })
+        }
+        filter.push(_filter)
+      })
+    }
+
+    debug('educativa.size.installs_first FILTER ', filter)
+
+    if (
+      _key
+    ) {
+      switch (_key) {
+        case 'educativa.size.installs.first':
+          source = [{
+            params: { id: _key },
+            // path: 'all',
+            // range: 'posix ' + roundHours(Date.now() - DAY) + '-' + roundMilliseconds(Date.now()) + '/*',
+            query: {
+              'from': 'educativa',
+              'index': false,
+              /**
+              * right now needed to match OUTPUT 'id' with this query (need to @fix)
+              **/
+              'q': [
+                {'metadata': ['timestamp']}
+              ],
+              'transformation': [
+                {
+                  'orderBy': { 'index': 'r.asc(timestamp)' },
+                },
+                {
+                  limit: 1
+                }
+              ],
+              'filter': filter
+
+            }
+          }]
+          break
+      }
+    }
+
+    // debug('dmarc_first ', key, source)
+
+    return { key, source }
+  },
+  callback: generic_callback
+
+}
 
 const size_periodical = {
   params: function (_key, vm) {
@@ -422,7 +422,7 @@ const size_periodical = {
 const once = [
   // hosts_info,
   size_info,
-  // size_first,
+  size_first,
   size_periodical,
   // size_report
 ]
@@ -430,7 +430,7 @@ const once = [
 const periodical = [
   // hosts_info,
   size_info,
-  // size_first,
+  size_first,
   size_periodical,
   // size_report
 ]
