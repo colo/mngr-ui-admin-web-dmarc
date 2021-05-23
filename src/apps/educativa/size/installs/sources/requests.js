@@ -1,5 +1,5 @@
 import * as Debug from 'debug'
-const debug = Debug('apps:educativa:size:periodical:requests')
+const debug = Debug('apps:educativa:size:installs:periodical:requests')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 import {roundMilliseconds, roundSeconds, roundMinutes, roundHours} from '@libs/time/round'
@@ -20,17 +20,17 @@ let init = false
 const generic_callback = function (data, metadata, key, vm) {
   debug('PERIODICAL GENERIC CALLBACK data %s %o', key, data, metadata)
 
-  if (key === 'educativa.size.periodical') {
+  if (key === 'educativa.size.installs.periodical') {
     // size_periodical_callback(data, metadata, key, vm)
     vm.size_data = data.educativa
-  } else if (key === 'educativa.size.info') {
+  } else if (key === 'educativa.size.installs.info') {
     // size_info_callback(data, metadata, key, vm)
     vm.size_info = data.educativa
   }
-  // else if (key === 'educativa.size.first') {
+  // else if (key === 'educativa.size.installs.first') {
   //   // debug('GENERIC CALLBACK data FIRST %s %o', key, data, metadata)
   //   vm.datePickerMinDate = data.educativa[0].metadata.timestamp
-  // } else if (key === 'educativa.size.report') {
+  // } else if (key === 'educativa.size.installs.report') {
   //   debug('GENERIC CALLBACK data REPORT %s %o', key, data, metadata)
   //   // dmarc_info_callback(data, metadata, key, vm)
   //   // if (data.dmarc[0].metadata.timestamp * 1 !== vm.datePickerMinDate * 1) { vm.datePickerMinDate = data.dmarc[0].metadata.timestamp }
@@ -109,7 +109,7 @@ const generic_callback = function (data, metadata, key, vm) {
 
 const size_info = {
   params: function (_key, vm) {
-    debug('PERIODICAL educativa.size_info %o %o', _key, vm)
+    debug('PERIODICAL educativa.size.installs_info %o %o', _key, vm)
 
     // const MINUTE = 60000
 
@@ -118,18 +118,18 @@ const size_info = {
 
     if (!_key) {
       // key = ['host.info', 'config.range', 'minute.range']
-      key = ['educativa.size.info'] //, 'minute.range'
+      key = ['educativa.size.installs.info'] //, 'minute.range'
     }
 
     let filter = [
-      "this.r.row('metadata')('path').eq('educativa.size')"
+      "this.r.row('metadata')('path').eq('educativa.size.installs')"
     ]
 
     if (
       _key
     ) {
       switch (_key) {
-        case 'educativa.size.info':
+        case 'educativa.size.installs.info':
           source = [{
             params: { id: _key },
             // path: 'all',
@@ -166,7 +166,7 @@ const size_info = {
 
 // const size_first = {
 //   params: function (_key, vm) {
-//     debug('PERIODICAL educativa.size_first %o %o', _key, vm)
+//     debug('PERIODICAL educativa.size.installs_first %o %o', _key, vm)
 //
 //     // const MINUTE = 60000
 //
@@ -175,11 +175,11 @@ const size_info = {
 //
 //     if (!_key) {
 //       // key = ['host.first', 'config.range', 'minute.range']
-//       key = ['educativa.size.first'] //, 'minute.range'
+//       key = ['educativa.size.installs.first'] //, 'minute.range'
 //     }
 //
 //     let filter = [
-//       "this.r.row('metadata')('path').eq('educativa.size')"
+//       "this.r.row('metadata')('path').eq('educativa.size.installs')"
 //     ]
 //
 //     if (vm.filters && Object.getLength(vm.filters) > 0) {
@@ -204,13 +204,13 @@ const size_info = {
 //       })
 //     }
 //
-//     debug('educativa.size_first FILTER ', filter)
+//     debug('educativa.size.installs_first FILTER ', filter)
 //
 //     if (
 //       _key
 //     ) {
 //       switch (_key) {
-//         case 'educativa.size.first':
+//         case 'educativa.size.installs.first':
 //           source = [{
 //             params: { id: _key },
 //             // path: 'all',
@@ -250,7 +250,7 @@ const size_info = {
 
 const size_periodical = {
   params: function (_key, vm) {
-    debug('PERIODICAL educativa.size_periodical %o %o', _key, vm)
+    debug('PERIODICAL educativa.size.installs_periodical %o %o', _key, vm)
 
     // const MINUTE = 60000
 
@@ -259,11 +259,11 @@ const size_periodical = {
 
     if (!_key) {
       // key = ['host.periodical', 'config.range', 'minute.range']
-      key = ['educativa.size.periodical'] //, 'minute.range'
+      key = ['educativa.size.installs.periodical'] //, 'minute.range'
     }
 
     let filter = [
-      "this.r.row('metadata')('path').eq('educativa.size')"
+      "this.r.row('metadata')('path').eq('educativa.size.installs')"
     ]
 
     if (vm.filters && Object.getLength(vm.filters) > 0) {
@@ -289,13 +289,13 @@ const size_periodical = {
     }
 
     filter = filter.clean()
-    debug('educativa.size_periodical FILTER ', filter)
+    debug('educativa.size.installs_periodical FILTER ', filter)
 
     if (
       _key
     ) {
       switch (_key) {
-        case 'educativa.size.periodical':
+        case 'educativa.size.installs.periodical':
           source = [{
             params: { id: _key },
             // path: 'all',
@@ -368,7 +368,7 @@ const size_periodical = {
 
 // const size_report = {
 //   params: function (_key, vm) {
-//     debug('PERIODICAL educativa.size_report %o %o', _key, vm)
+//     debug('PERIODICAL educativa.size.installs_report %o %o', _key, vm)
 //
 //     // const MINUTE = 60000
 //
@@ -377,7 +377,7 @@ const size_periodical = {
 //
 //     if (!_key) {
 //       // key = ['host.report', 'config.range', 'minute.range']
-//       key = ['educativa.size.report'] //, 'minute.range'
+//       key = ['educativa.size.installs.report'] //, 'minute.range'
 //     }
 //
 //     if (
@@ -387,15 +387,15 @@ const size_periodical = {
 //
 //       filter.push("this.r.row('metadata')('id').eq('" + vm.report_id + "')")
 //
-//       debug('educativa.size_report FILTER ', filter)
+//       debug('educativa.size.installs_report FILTER ', filter)
 //
 //       switch (_key) {
-//         case 'educativa.size.report':
+//         case 'educativa.size.installs.report':
 //           source = [{
 //             params: { id: _key },
 //             // path: 'all',
 //             query: {
-//               'from': 'educativa.size',
+//               'from': 'educativa.size.installs',
 //               'index': false,
 //               /**
 //               * right now needed to match OUTPUT 'id' with this query (need to @fix)

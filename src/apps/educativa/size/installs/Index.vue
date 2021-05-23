@@ -10,7 +10,7 @@
 
 	<div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
 
-		<div class="z-50 relative inline-block text-left dropdown">
+		<!-- <div class="z-50 relative inline-block text-left dropdown">
 			<span class="rounded-md shadow-sm">
 			<button class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" type="button" aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
 				<span>Domains</span>
@@ -20,31 +20,18 @@
 			<div class="invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
 				<div class="bg-white bg-opacity-100 absolute right-0 w-56 mt-2 origin-top-right border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
 					<div class="px-4 py-3">
-						<!-- <p class="text-sm leading-5">Signed in as</p>
-						<p class="text-sm font-medium leading-5 text-gray-900 truncate">tom@example.com</p> -->
-						<!-- <div class="form-control"> -->
 						<label class="cursor-pointer label" v-for="domain in domains" :key="domain">
 							<span class="label-text">{{domain}}</span>
 							<div>
 								<input type="checkbox" :value="domain" v-model="filters.domain" class="checkbox checkbox-primary">
-								<!-- @input="addHost(domain)" :checked="(filters.domain && filters.domain.indexOf(domain) > -1) ? true : false" -->
 								<span class="checkbox-mark"></span>
 							</div>
 						</label>
-						<!-- </div> -->
 					</div>
-					<!-- <div class="py-1">
-						<a href="javascript:void(0)" tabindex="0" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Account settings</a>
-						<a href="javascript:void(0)" tabindex="1" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Support</a>
-						<span role="menuitem" tabindex="-1" class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed" aria-disabled="true">New feature (soon)</span>
-						<a href="javascript:void(0)" tabindex="2" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem" >License</a>
-					</div>
-					<div class="py-1">
-						<a href="javascript:void(0)" tabindex="3" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Sign out</a>
-					</div> -->
+
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="z-50 relative inline-block text-left dropdown">
 			<span class="rounded-md shadow-sm">
@@ -120,11 +107,10 @@
   </div>
 </div>
 <!-- </section> -->
-<template v-if="report_id === undefined">
+<!-- <template v-if="report_id === undefined">
 		<div class="grid grid-cols-3 gap-4">
 			<div class="card shadow-lg">
-				<!-- <figure>
-				</figure> -->
+
 				<div class="card-body">
 					<chart-tabular
 						id="domainsPieFrappe"
@@ -134,7 +120,7 @@
 						}"
 						:config="Object.clone(frappePieConfig)"
 						:dataset="{
-							/* length: 1, */
+
 							numeric: false,
 							data: domainsPieDatasetsTabular,
 						}"
@@ -150,8 +136,7 @@
 			</div>
 
 			<div class="card shadow-lg">
-				<!-- <figure>
-				</figure> -->
+
 				<div class="card-body">
 					<chart
 						id="hostsPieFrappe"
@@ -198,13 +183,11 @@
 			</div>
 		</div>
 
-		<!-- <section class="text-gray-600 body-font"> -->
-			<!-- <div class="container px-5 py-24 mx-auto"> -->
 			<div class="card">
 				<div class="card-body">
 					<div class="flex flex-wrap -m-4 text-center">
 						<div class="p-3 sm:w-1/3 w-1/2">
-							<h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{dmarc_data.length}}</h2>
+							<h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{size_data.length}}</h2>
 							<p class="leading-relaxed">Reports</p>
 						</div>
 						<div class="p-3 sm:w-1/3 w-1/2">
@@ -215,16 +198,13 @@
 							<h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">{{ formatMinStats(total_ips.length )}}</h2>
 							<p class="leading-relaxed">IPs count</p>
 						</div>
-						<!-- <div class="p-4 sm:w-1/4 w-1/2">
-							<h2 class="title-font font-medium sm:text-4xl text-3xl text-gray-900">4</h2>
-							<p class="leading-relaxed">Products</p>
-						</div> -->
+
 					</div>
 				</div>
 			</div>
-</template>
+</template> -->
 
-	<div class="card shadow-lg" v-show="report !== undefined && report_id !== undefined">
+	<!-- <div class="card shadow-lg" v-show="report !== undefined && report_id !== undefined">
 		<div class="card-body">
 			<div class="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
 				<button class="btn btn-ghost btn-circle" v-on:click="setReportID(undefined)">
@@ -232,11 +212,6 @@
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 					</svg>
 				</button>
-				<!-- <button class="btn btn-circle btn-xs" v-on:click="setReportID(undefined)">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-					</svg>
-				</button> -->
 			</div>
 
 			<div class="md:p-8 p-6 bg-white flex justify-between dark:bg-gray-800 md:items-center md:flex-row flex-col gap-12">
@@ -251,10 +226,6 @@
 				<div class="self-end">
 					<div class="md:text-right text-left md:block">
 						<p class="text-info text-xl md:mb-2 mb-0 dark:text-gray-100 flex items-center increase">
-							<!-- <svg width="20" height="20" fill="currentColor" class="h-6 w-6 text-red-500 mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-							<path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
-							</path>
-							</svg> -->
 							{{report_domain}}
 						</p>
 					</div>
@@ -268,34 +239,23 @@
 			<div id="JsonViewer">
 			</div>
 		</div>
+	</div> -->
+
+	<div class="card shadow-lg">
+		<div class="card-body">
+			<Treemap :width="1440" :height="400" :tree="treemap" :format-value="formatSize" :key="treemap_key"/>
+		</div>
 	</div>
-
-			<!-- </div> -->
-		<!-- </section> -->
-
 		<div class="card shadow-lg">
 			<div class="card-body">
 				<data-table id="rangeReportsTable" :options="rangeReportsTableOptions" :dataSet="rangeReportsTableData" :groupColumn="0" />
 			</div>
 		</div>
 
-		<!-- <frappe-charts-wrapper
-			:options="{
-				title: 'My Awesome Chart',
-				data: {
-					labels: domainsPieLabels,
-					datasets: []
-				},
-				type: 'donut', // or 'bar', 'line', 'scatter', 'pie', 'percentage'
-				height: 250,
-			}"
-			:datasets="domainsPieDatasets"
-		/> -->
-
-		<!-- {{dmarc}} -->
+		<!-- {{size}} -->
 		<!-- <button class="btn btn-primary">DaisyUI Button</button>
 		<ul>
-			<li v-for="(report, index) in dmarc_data" :key="index">
+			<li v-for="(report, index) in size_data" :key="index">
 				{{index + 1}}: {{report.metadata.domain}} : {{report.metadata.host}}
 			</li>
 		</ul> -->
@@ -305,11 +265,11 @@
 
 <script>
 import * as Debug from 'debug'
-const debug = Debug('apps:dmarc')
+const debug = Debug('apps:educativa:size:installs')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
-import JSPipeline from '../../../modules/js-pipeline'
-// import Pipeline from '@apps/dmarc/pipelines/periodical'
+import JSPipeline from '../../../../../modules/js-pipeline'
+
 import Pipeline from '@libs/pipelines'
 import InputIO from '@libs/pipelines/input/io'
 // import InputIO from '@libs/pipelines/input/graphql.io'
@@ -333,7 +293,7 @@ import chart from '@components/chart'
 import chartTabular from '@components/chart.tabular'
 import frappeChartsWrapper from '@components/wrappers/frappeCharts'
 // import frappeChartsWrapper from './components/frappeCharts'
-import frappeChartsConfig from '../../../modules/mngr-ui-admin-charts/defaults/frappeCharts'
+import frappeChartsConfig from '../../../../../modules/mngr-ui-admin-charts/defaults/frappeCharts'
 
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -342,18 +302,38 @@ import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import 'flatpickr/dist/themes/material_blue.css'
 
-import JsonViewer from 'json-viewer-js'
+// import JsonViewer from 'json-viewer-js'
+// import * as d3 from 'd3'
+// import Treemap from 'treemap-chart'
 
+import Treemap from '@components/Treemap'
+
+const formatSize = function (val) {
+  if (val > 1099511627776) {
+    val = Math.round(val / 1099511627776) + 'Tb'
+  } else if (val > 1073741824) {
+    val = Math.round(val / 1073741824) + 'Gb'
+  } else if (val > 1048576) {
+    val = Math.round(val / 1048576) + 'Mb'
+  } else if (val > 1024) {
+    val = Math.round(val / 1024) + 'Kb'
+  } else {
+    val += 'B'
+  }
+
+  return val
+}
 export default {
   mixins: [DataSourcesMixin, DashboardMixin],
-  name: 'AppDmarc',
+  name: 'AppEducativaSize',
 
   components: {
     frappeChartsWrapper,
     chartTabular,
     chart,
     dataTable,
-    flatPickr
+    flatPickr,
+    Treemap
   },
 
   props: {
@@ -374,8 +354,8 @@ export default {
   data () {
     return {
       // datepicker
-      report_id: undefined,
-      report: undefined,
+      // report_id: undefined,
+      // report: undefined,
       DAY: DAY,
       date: null,
       datePickerMinDate: 0,
@@ -390,66 +370,66 @@ export default {
         host: []
       },
 
-      servers: [],
+      // servers: [],
       hosts: [],
       domains: [],
 
-      total_domains_count: 0,
-      total_hosts_count: 0,
-      total_diposition_count: 0,
-      total_records_count: 0,
-      total_ips: [],
-      // domainsPieDatasets: [],
-      domainsPieDatasetsTabular: [],
-      domainsPieLabels: [],
+      // total_domains_count: 0,
+      // total_hosts_count: 0,
+      // total_diposition_count: 0,
+      // total_records_count: 0,
+      // total_ips: [],
+      // // domainsPieDatasets: [],
+      // domainsPieDatasetsTabular: [],
+      // domainsPieLabels: [],
 
-      hostsPieDatasets: undefined,
-      dispositionDatasets: undefined,
+      // hostsPieDatasets: undefined,
+      // dispositionDatasets: undefined,
+      //
+      // // hostsPieDatasetsTabular: [],
+      // // hostsPieLabels: [],
 
-      // hostsPieDatasetsTabular: [],
-      // hostsPieLabels: [],
+      // frappeChartsWrapper: frappeChartsWrapper,
 
-      frappeChartsWrapper: frappeChartsWrapper,
-
-      frappePieConfig: Object.merge(Object.clone(frappeChartsConfig), {
-        interval: 1,
-        watch: {
-          skip: 0
-        },
-
-        options: {
-          /* title: 'My Awesome Chart', */
-          data: {
-          },
-          type: 'percentage', // or 'bar', 'line', 'scatter', 'pie', 'percentage'
-          maxSlices: 6,
-          // height: 250
-          /* colors: ['#7cd6fd', '#743ee2'] */
-        }
-
-      }),
+      // frappePieConfig: Object.merge(Object.clone(frappeChartsConfig), {
+      //   interval: 1,
+      //   watch: {
+      //     skip: 0
+      //   },
+      //
+      //   options: {
+      //     /* title: 'My Awesome Chart', */
+      //     data: {
+      //     },
+      //     type: 'percentage', // or 'bar', 'line', 'scatter', 'pie', 'percentage'
+      //     maxSlices: 6,
+      //     // height: 250
+      //     /* colors: ['#7cd6fd', '#743ee2'] */
+      //   }
+      //
+      // }),
 
       rangeReportsTableOptions: {},
 
-      report_policy: '',
-      report_domain: '',
-      report_email: '',
-      report_org: '',
-      reportTableData: [],
-      reportTableOptions: {},
+      // report_policy: '',
+      // report_domain: '',
+      // report_email: '',
+      // report_org: '',
+      // reportTableData: [],
+      // reportTableOptions: {},
 
       height: '0px',
 
-      // dmarc: [],
+      // size: [],
       //
-      // selected_dmarc: [],
+      // selected_size: [],
       /**
       * dataSources
       **/
       store: false,
-      pipeline_id: ['input.dmarc.periodical'],
+      pipeline_id: ['input.educativa.size.installs.periodical'],
 
-      id: 'input.dmarc.periodical',
+      id: 'input.educativa.size.installs.periodical',
       path: 'all',
 
       // host: 'perseus',
@@ -457,7 +437,7 @@ export default {
         'all': [
           {
             // some_data: {
-            //   dmarc: true
+            //   size: true
             // },
             source: {
               requests: requests,
@@ -503,8 +483,8 @@ export default {
       //   top_domain_counter: []
       // },
 
-      dmarc_info: [],
-      dmarc_data: [],
+      size_info: [],
+      size_data: [],
 
       // top: 5,
 
@@ -544,7 +524,9 @@ export default {
       data: [],
 
       columns: [
-        { data: 'domain' },
+        // { title: 'Domain', data: 'domain' },
+        { title: 'User', data: 'user' },
+        { title: 'Install', data: 'install' },
         // {
         //   title: 'Domain',
         //   data: 'domain',
@@ -553,22 +535,22 @@ export default {
         //     return `<a class="link link-primary">${data}</a>`
         //   }
         // },
-        {
-          // title: 'Host',
-          data: 'id',
-          render: function (data, type, row, meta) {
-            // return format(data, 'E dd/MM/yyyy H:mm O')
-            if (type === 'display') {
-              // return `<a class="link link-primary open-item" href="javascript:void(0);" data-item-id=${row.id}>${data}</a>`
-              return `<button class="btn btn-ghost  open-item" data-item-id=${data}>
-								<!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="icon" data-item-id=${data} width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-							</button>`
-            } else {
-              return data
-            }
-          }
-        },
+        // {
+        //   // title: 'Host',
+        //   data: 'id',
+        //   render: function (data, type, row, meta) {
+        //     // return format(data, 'E dd/MM/yyyy H:mm O')
+        //     if (type === 'display') {
+        //       // return `<a class="link link-primary open-item" href="javascript:void(0);" data-item-id=${row.id}>${data}</a>`
+        //       return `<button class="btn btn-ghost  open-item" data-item-id=${data}>
+        // 				<!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+        // 				<svg xmlns="http://www.w3.org/2000/svg" class="icon" data-item-id=${data} width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
+        // 			</button>`
+        //     } else {
+        //       return data
+        //     }
+        //   }
+        // },
         {
           title: 'Host',
           data: 'host',
@@ -579,7 +561,7 @@ export default {
           render: function (data, type, row, meta) {
             // return format(data, 'E dd/MM/yyyy H:mm O')
             if (type === 'display') {
-              // debug('table timestamp', row, meta)
+              debug('table timestamp', data)
               // return format(data, 'PPPP HH:MM', {locale: es})
               return format(data, 'PPpp', {locale: es})
             } else {
@@ -587,168 +569,178 @@ export default {
             }
           }
         },
+        // {
+        //   title: 'None',
+        //   data: 'none',
+        //   'width': '10%',
+        //   render: function (data, type) {
+        //     // return format(data, 'E dd/MM/yyyy H:mm O')
+        //     return `<div class="badge badge-success">${data}</div> `
+        //   }
+        // },
+        // {
+        //   title: 'Quarantine',
+        //   data: 'quarantine',
+        //   'width': '10%',
+        //   render: function (data, type) {
+        //     // return format(data, 'E dd/MM/yyyy H:mm O')
+        //     return `<div class="badge badge-warning">${data}</div> `
+        //   }
+        // },
+        // {
+        //   title: 'Reject',
+        //   data: 'reject',
+        //   'width': '10%',
+        //   render: function (data, type) {
+        //     // return format(data, 'E dd/MM/yyyy H:mm O')
+        //     return `<div class="badge badge-error">${data}</div> `
+        //   }
+        // },
         {
-          title: 'None',
-          data: 'none',
+          title: 'Size',
+          data: 'size',
           'width': '10%',
           render: function (data, type) {
             // return format(data, 'E dd/MM/yyyy H:mm O')
-            return `<div class="badge badge-success">${data}</div> `
-          }
-        },
-        {
-          title: 'Quarantine',
-          data: 'quarantine',
-          'width': '10%',
-          render: function (data, type) {
-            // return format(data, 'E dd/MM/yyyy H:mm O')
-            return `<div class="badge badge-warning">${data}</div> `
-          }
-        },
-        {
-          title: 'Reject',
-          data: 'reject',
-          'width': '10%',
-          render: function (data, type) {
-            // return format(data, 'E dd/MM/yyyy H:mm O')
-            return `<div class="badge badge-error">${data}</div> `
-          }
-        },
-      ],
-      'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
-      'columnDefs': [
-        // {
-        //   targets: [1, 2],
-        //   className: 'dt-center'
-        // },
-        {
-          targets: [1, 2, 3],
-          className: 'dt-center'
-        },
-        // {
-        //   targets: [3, 4, 5],
-        //   className: 'dt-body-center'
-        // },
-        // {
-        //   // targets: -1,// not working
-        //   targets: [3, 4, 5],
-        //   className: 'dt-head-center'
-        // },
-        { 'visible': false, 'targets': 0 },
-        {
-          'targets': [4, 5, 6],
-          'searchable': false,
-          className: 'dt-body-center'
-        }
-        // { 'visible': false, 'targets': -1 }
-      ],
-      'order': [[ 2, 'desc' ], [ 0, 'asc' ]],
-      'displayLength': 10,
-      'drawCallback': function (settings) {
-        let els = document.getElementsByClassName('open-item')
-        debug('ELS', els)
-        Array.each(els, function (el) {
-          el.addEventListener('click', function (e) {
-            debug('open-item', e.target.dataset.itemId)
-            self.setReportID(e.target.dataset.itemId)
-          })
-        })
+            //
 
-        let api = this.api()
-        let rows = api.rows({page: 'current'}).nodes()
-        let last = null
-
-        api.column(0, {page: 'current'}).data().each(function (group, i) {
-          if (last !== group) {
-            $(rows).eq(i).before(
-              '<tr class="group"><td colspan="6">' + group + '</td></tr>'
-            )
-
-            last = group
-          }
-        })
-      }
-    }
-
-    this.reportTableOptions = {
-      deferRender: true,
-      // stateSave: true,
-      responsive: true,
-      data: [],
-
-      columns: [
-        {
-          data: 'disposition',
-          title: 'Disposition',
-          'width': '10%',
-          render: function (data, type) {
             if (type === 'display') {
-              let badge = (data === 'none') ? 'badge-success' : (data === 'quarantine') ? 'badge-warning' : 'badge-error'
-              return `<div class="badge ${badge}">${data}</div> `
-            } else {
-              return data
-            }
-          }
-        },
-        {
-          data: 'ip',
-          title: 'IP',
-          render: function (data, type) {
-            if (type === 'display') {
-              if (data.ip && data.host) {
-                return `<div class="badge badge-info">${data.host}</div> ${data.ip}`
-              } else {
-                return `<a class="link link-primary underline" href="https://mxtoolbox.com/SuperTool.aspx?action=ptr:${data.ip}&run=toolpage" target="_blank">${data.ip}</a>`
+              let badge = 'badge-success'
+              // if (data > 1099511627776) { // Terabyte
+              //   badge = 'badge-error'
+              if (data > 1073741824 * 500) { // 200GB
+                badge = 'badge-error'
+              } else if (data > 1073741824 * 200) { // 200GB
+                badge = 'badge-warning'
               }
-            } else {
-              return data.ip
-            }
-          }
-        },
-        { data: 'count', title: 'Count' },
-        { data: 'identifiers', title: 'Identifiers' },
-        { data: 'dkim_domain', title: 'DKIM Domain' },
-        { data: 'dkim_selector', title: 'DKIM Selector' },
-        {
-          data: 'dkim_result',
-          title: 'DKIM Result',
-          'width': '10%',
-          render: function (data, type) {
-            if (type === 'display') {
-              let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
-              return `<div class="badge ${badge}">${data}</div> `
-            } else {
-              return data
-            }
-          }
-        },
-        { data: 'spf_domain', title: 'SPF Domain' },
-        {
-          data: 'spf_result',
-          title: 'SPF Result',
-          'width': '10%',
-          render: function (data, type) {
-            if (type === 'display') {
-              let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
-              return `<div class="badge ${badge}">${data}</div> `
-            } else {
-              return data
-            }
-          }
-        },
 
+              return `<div/ class="badge ${badge}">${formatSize(data)}</div> `
+            } else {
+              return data
+            }
+          }
+        },
       ],
-
-      'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+      'lengthMenu': [[15, 25, 50, -1], [15, 25, 50, 'All']],
       'columnDefs': [
         {
-          targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+          targets: [0, 1, 2, 3, 4],
           className: 'dt-center'
         },
+        // { 'visible': false, 'targets': 0 },
+        // {
+        //   'targets': [4, 5, 6],
+        //   'searchable': false,
+        //   className: 'dt-body-center'
+        // }
       ],
-      'order': [[ 2, 'desc' ]],
-      'displayLength': 10,
+      'order': [ 3, 'desc'],
+      'displayLength': 15,
+      // 'drawCallback': function (settings) {
+      //   let els = document.getElementsByClassName('open-item')
+      //   debug('ELS', els)
+      //   Array.each(els, function (el) {
+      //     el.addEventListener('click', function (e) {
+      //       debug('open-item', e.target.dataset.itemId)
+      //       self.setReportID(e.target.dataset.itemId)
+      //     })
+      //   })
+      //
+      //   let api = this.api()
+      //   let rows = api.rows({page: 'current'}).nodes()
+      //   let last = null
+      //
+      //   api.column(0, {page: 'current'}).data().each(function (group, i) {
+      //     if (last !== group) {
+      //       $(rows).eq(i).before(
+      //         '<tr class="group"><td colspan="6">' + group + '</td></tr>'
+      //       )
+      //
+      //       last = group
+      //     }
+      //   })
+      // }
     }
+
+    // this.reportTableOptions = {
+    //   deferRender: true,
+    //   // stateSave: true,
+    //   responsive: true,
+    //   data: [],
+    //
+    //   columns: [
+    //     {
+    //       data: 'disposition',
+    //       title: 'Disposition',
+    //       'width': '10%',
+    //       render: function (data, type) {
+    //         if (type === 'display') {
+    //           let badge = (data === 'none') ? 'badge-success' : (data === 'quarantine') ? 'badge-warning' : 'badge-error'
+    //           return `<div class="badge ${badge}">${data}</div> `
+    //         } else {
+    //           return data
+    //         }
+    //       }
+    //     },
+    //     {
+    //       data: 'ip',
+    //       title: 'IP',
+    //       render: function (data, type) {
+    //         if (type === 'display') {
+    //           if (data.ip && data.host) {
+    //             return `<div class="badge badge-info">${data.host}</div> ${data.ip}`
+    //           } else {
+    //             return `<a class="link link-primary underline" href="https://mxtoolbox.com/SuperTool.aspx?action=ptr:${data.ip}&run=toolpage" target="_blank">${data.ip}</a>`
+    //           }
+    //         } else {
+    //           return data.ip
+    //         }
+    //       }
+    //     },
+    //     { data: 'count', title: 'Count' },
+    //     { data: 'identifiers', title: 'Identifiers' },
+    //     { data: 'dkim_domain', title: 'DKIM Domain' },
+    //     { data: 'dkim_selector', title: 'DKIM Selector' },
+    //     {
+    //       data: 'dkim_result',
+    //       title: 'DKIM Result',
+    //       'width': '10%',
+    //       render: function (data, type) {
+    //         if (type === 'display') {
+    //           let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
+    //           return `<div class="badge ${badge}">${data}</div> `
+    //         } else {
+    //           return data
+    //         }
+    //       }
+    //     },
+    //     { data: 'spf_domain', title: 'SPF Domain' },
+    //     {
+    //       data: 'spf_result',
+    //       title: 'SPF Result',
+    //       'width': '10%',
+    //       render: function (data, type) {
+    //         if (type === 'display') {
+    //           let badge = (data === 'pass') ? 'badge-success' : 'badge-error'
+    //           return `<div class="badge ${badge}">${data}</div> `
+    //         } else {
+    //           return data
+    //         }
+    //       }
+    //     },
+    //
+    //   ],
+    //
+    //   'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+    //   'columnDefs': [
+    //     {
+    //       targets: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    //       className: 'dt-center'
+    //     },
+    //   ],
+    //   'order': [[ 2, 'desc' ]],
+    //   'displayLength': 10,
+    // }
 
     let allow_filters = /(host|domain)/
     Object.each(this.$route.query, function (data, prop) {
@@ -812,68 +804,68 @@ export default {
     }
   },
   watch: {
-    report: function (doc) {
-      let container = document.getElementById('JsonViewer')
-      debug('watch report', container, doc)
-      this.reportTableData = []
-      this.report_domain = doc.data.policy.domain
-      this.report_policy = `adkim: ${doc.data.policy.adkim} | aspf: ${doc.data.policy.aspf} | p: ${doc.data.policy.p} | pct: ${doc.data.policy.pct} | sp: ${doc.data.policy.sp}`
-      this.report_email = doc.data.report.email
-      this.report_org = doc.data.report.org
-
-      Object.each(doc.data.records, function (data, disposition) {
-        Array.each(data, function (row) {
-          let ip = row.ip
-          let ip_record = {ip: ip, host: undefined}
-          if (this.servers.length > 0) {
-            Array.each(this.servers, function (server) {
-              let server_ips = []
-              Object.each(server.data.networkInterfaces, function (iface) {
-                if (Array.isArray(iface)) {
-                  Array.each(iface, function (_if) {
-                    server_ips.push(_if.address)
-                  })
-                } else {
-                  Array.each(iface.if, function (_if) {
-                    server_ips.push(_if.address)
-                  })
-                }
-              })
-
-              if (server_ips.contains(ip)) {
-                ip_record.host = server.metadata.host
-              }
-            })
-          }
-
-          let reg = {
-            disposition: disposition,
-            count: row.count,
-            ip: ip_record,
-            identifiers: JSON.stringify(row.identifiers),
-            'dkim_domain': (row.results.dkim && row.results.dkim.domain) ? row.results.dkim.domain : '-',
-            'dkim_selector': (row.results.dkim && row.results.dkim.selector) ? row.results.dkim.selector : '-',
-            'dkim_result': (row.results.dkim && row.results.dkim.result) ? row.results.dkim.result : '-',
-            'spf_domain': (row.results.spf && row.results.spf.domain) ? row.results.spf.domain : '-',
-            'spf_result': (row.results.spf && row.results.spf.result) ? row.results.spf.result : '-',
-          }
-
-          this.reportTableData.push(reg)
-        }.bind(this))
-      }.bind(this))
-
-      if (container !== null && container !== undefined) {
-        while (container.lastElementChild) {
-          container.removeChild(container.lastElementChild)
-        }
-        let viewer = new JsonViewer({
-          container: container,
-          data: JSON.stringify(doc.data),
-          theme: 'light',
-          expand: false
-        })
-      }
-    },
+    // report: function (doc) {
+    //   let container = document.getElementById('JsonViewer')
+    //   debug('watch report', container, doc)
+    //   this.reportTableData = []
+    //   this.report_domain = doc.data.policy.domain
+    //   this.report_policy = `adkim: ${doc.data.policy.adkim} | aspf: ${doc.data.policy.aspf} | p: ${doc.data.policy.p} | pct: ${doc.data.policy.pct} | sp: ${doc.data.policy.sp}`
+    //   this.report_email = doc.data.report.email
+    //   this.report_org = doc.data.report.org
+    //
+    //   Object.each(doc.data.records, function (data, disposition) {
+    //     Array.each(data, function (row) {
+    //       let ip = row.ip
+    //       let ip_record = {ip: ip, host: undefined}
+    //       if (this.servers.length > 0) {
+    //         Array.each(this.servers, function (server) {
+    //           let server_ips = []
+    //           Object.each(server.data.networkInterfaces, function (iface) {
+    //             if (Array.isArray(iface)) {
+    //               Array.each(iface, function (_if) {
+    //                 server_ips.push(_if.address)
+    //               })
+    //             } else {
+    //               Array.each(iface.if, function (_if) {
+    //                 server_ips.push(_if.address)
+    //               })
+    //             }
+    //           })
+    //
+    //           if (server_ips.contains(ip)) {
+    //             ip_record.host = server.metadata.host
+    //           }
+    //         })
+    //       }
+    //
+    //       let reg = {
+    //         disposition: disposition,
+    //         count: row.count,
+    //         ip: ip_record,
+    //         identifiers: JSON.stringify(row.identifiers),
+    //         'dkim_domain': (row.results.dkim && row.results.dkim.domain) ? row.results.dkim.domain : '-',
+    //         'dkim_selector': (row.results.dkim && row.results.dkim.selector) ? row.results.dkim.selector : '-',
+    //         'dkim_result': (row.results.dkim && row.results.dkim.result) ? row.results.dkim.result : '-',
+    //         'spf_domain': (row.results.spf && row.results.spf.domain) ? row.results.spf.domain : '-',
+    //         'spf_result': (row.results.spf && row.results.spf.result) ? row.results.spf.result : '-',
+    //       }
+    //
+    //       this.reportTableData.push(reg)
+    //     }.bind(this))
+    //   }.bind(this))
+    //
+    //   if (container !== null && container !== undefined) {
+    //     while (container.lastElementChild) {
+    //       container.removeChild(container.lastElementChild)
+    //     }
+    //     let viewer = new JsonViewer({
+    //       container: container,
+    //       data: JSON.stringify(doc.data),
+    //       theme: 'light',
+    //       expand: false
+    //     })
+    //   }
+    // },
     'filters.host': function (val) {
       debug('filters.host', val)
       // if (this.filters_debounce.host.ts + 1000 < Date.now()) {
@@ -900,167 +892,229 @@ export default {
 
       // this.filters_debounce.domain.ts = Date.now()
     },
-    dmarc_info: function (val) {
-      debug('dmarc_info', val)
-      let count_domains = {}
-      let count_hosts = {}
-      let count_disposition = {none: 0, quarantine: 0, reject: 0}
-      // this.total_records_count = 0
-      // this.total_ips = []
-
+    size_info: function (val) {
+      debug('size_info', val)
+      let hosts = []
       Array.each(val, function (row) {
         let domain = row.metadata.domain
         let host = row.metadata.host
-
-        // count_disposition.none += (row.data.records && row.data.records.none) ? row.data.records.none.length : 0
-        // count_disposition.quarantine += (row.data.records && row.data.records.quarantine) ? row.data.records.quarantine.length : 0
-        // count_disposition.reject += (row.data.records && row.data.records.reject) ? row.data.records.reject.length : 0
-        //
-        // Object.each(row.data.records, function (disposition) {
-        //   Array.each(disposition, function (record) {
-        //     this.total_records_count += record.count
-        //     this.total_ips.combine([ record.ip])
-        //   }.bind(this))
-        // }.bind(this))
-
-        if (!count_domains[domain]) count_domains[domain] = 0
-        count_domains[domain]++
-        // this.domainsPieLabels.combine([domain])
-
-        if (host && host !== undefined && host !== null) {
-          if (!count_hosts[host]) count_hosts[host] = 0
-          count_hosts[host]++
-          // this.hostsPieLabels.combine([host])
-        }
+        hosts.combine([host])
       })
 
-      // this.total_diposition_count += count_disposition.none + count_disposition.quarantine + count_disposition.reject
-
-      this.hosts = Object.keys(count_hosts)
-
-      this.domains = Object.keys(count_domains)
-
-      // this.domainsPieLabels.sort()
-      // this.hostsPieLabels.sort()
-
-      // let domains_dataset = []
-      // Array.each(this.domainsPieLabels, function (domain) {
-      //   domains_dataset.push(count_domains[domain])
-      // })
-      // // this.domainsPieDatasets = [{values: domains_dataset}]
-      // this.domainsPieDatasetsTabular = domains_dataset // [{values: domains_dataset}]
-
-      // let hosts_dataset = []
-      // Array.each(this.hostsPieLabels, function (host) {
-      //   // this.hostsPieDatasets
-      //   hosts_dataset.push(count_hosts[host])
-      // })
-
-      // this.hostsPieDatasets = [count_hosts]
-      // this.dispositionDatasets = [count_disposition]
-      // this.hostsPieDatasets = [{values: hosts_dataset}]
-      // this.hostsPieDatasetsTabular = hosts_dataset // [{values: hosts_dataset}]
-
-      // debug('dmarc_info domains', this.domainsPieLabels, count_domains, domains_dataset)
-      // debug('dmarc_data hosts', this.hostsPieLabels, count_hosts, hosts_dataset)
+      this.hosts = hosts
+    //   let count_domains = {}
+    //   let count_hosts = {}
+    //   let count_disposition = {none: 0, quarantine: 0, reject: 0}
+    //   // this.total_records_count = 0
+    //   // this.total_ips = []
+    //
+    //   Array.each(val, function (row) {
+    //     let domain = row.metadata.domain
+    //     let host = row.metadata.host
+    //
+    //     // count_disposition.none += (row.data.records && row.data.records.none) ? row.data.records.none.length : 0
+    //     // count_disposition.quarantine += (row.data.records && row.data.records.quarantine) ? row.data.records.quarantine.length : 0
+    //     // count_disposition.reject += (row.data.records && row.data.records.reject) ? row.data.records.reject.length : 0
+    //     //
+    //     // Object.each(row.data.records, function (disposition) {
+    //     //   Array.each(disposition, function (record) {
+    //     //     this.total_records_count += record.count
+    //     //     this.total_ips.combine([ record.ip])
+    //     //   }.bind(this))
+    //     // }.bind(this))
+    //
+    //     if (!count_domains[domain]) count_domains[domain] = 0
+    //     count_domains[domain]++
+    //     // this.domainsPieLabels.combine([domain])
+    //
+    //     if (host && host !== undefined && host !== null) {
+    //       if (!count_hosts[host]) count_hosts[host] = 0
+    //       count_hosts[host]++
+    //       // this.hostsPieLabels.combine([host])
+    //     }
+    //   })
+    //
+    //   // this.total_diposition_count += count_disposition.none + count_disposition.quarantine + count_disposition.reject
+    //
+    //   this.hosts = Object.keys(count_hosts)
+    //
+    //   this.domains = Object.keys(count_domains)
+    //
+    //   // this.domainsPieLabels.sort()
+    //   // this.hostsPieLabels.sort()
+    //
+    //   // let domains_dataset = []
+    //   // Array.each(this.domainsPieLabels, function (domain) {
+    //   //   domains_dataset.push(count_domains[domain])
+    //   // })
+    //   // // this.domainsPieDatasets = [{values: domains_dataset}]
+    //   // this.domainsPieDatasetsTabular = domains_dataset // [{values: domains_dataset}]
+    //
+    //   // let hosts_dataset = []
+    //   // Array.each(this.hostsPieLabels, function (host) {
+    //   //   // this.hostsPieDatasets
+    //   //   hosts_dataset.push(count_hosts[host])
+    //   // })
+    //
+    //   // this.hostsPieDatasets = [count_hosts]
+    //   // this.dispositionDatasets = [count_disposition]
+    //   // this.hostsPieDatasets = [{values: hosts_dataset}]
+    //   // this.hostsPieDatasetsTabular = hosts_dataset // [{values: hosts_dataset}]
+    //
+    //   // debug('size_info domains', this.domainsPieLabels, count_domains, domains_dataset)
+    //   // debug('size_data hosts', this.hostsPieLabels, count_hosts, hosts_dataset)
     },
 
-    dmarc_data: function (val) {
-      debug('dmarc_data', val)
-      let count_domains = {}
-      let count_hosts = {}
-      let count_disposition = {none: 0, quarantine: 0, reject: 0}
-      this.total_records_count = 0
-      this.total_ips = []
-      this.domainsPieLabels = []
-      this.total_diposition_count = 0
-
-      Array.each(val, function (row) {
-        let domain = row.metadata.domain
-        let host = row.metadata.host
-
-        count_disposition.none += (row.data.records && row.data.records.none) ? row.data.records.none.length : 0
-        count_disposition.quarantine += (row.data.records && row.data.records.quarantine) ? row.data.records.quarantine.length : 0
-        count_disposition.reject += (row.data.records && row.data.records.reject) ? row.data.records.reject.length : 0
-
-        Object.each(row.data.records, function (disposition) {
-          Array.each(disposition, function (record) {
-            this.total_records_count += record.count
-            this.total_ips.combine([ record.ip])
-          }.bind(this))
-        }.bind(this))
-
-        if (!count_domains[domain]) count_domains[domain] = 0
-        count_domains[domain]++
-        this.domainsPieLabels.combine([domain])
-
-        if (host && host !== undefined && host !== null) {
-          if (!count_hosts[host]) count_hosts[host] = 0
-          count_hosts[host]++
-          // this.hostsPieLabels.combine([host])
-        }
-      }.bind(this))
-
-      this.total_diposition_count += count_disposition.none + count_disposition.quarantine + count_disposition.reject
-      this.total_hosts_count = Object.keys(count_hosts).length
-      this.total_domains_count = Object.keys(count_domains).length
-
-      this.domainsPieLabels.sort()
-      // this.hostsPieLabels.sort()
-
-      let domains_dataset = []
-      Array.each(this.domainsPieLabels, function (domain) {
-        domains_dataset.push(count_domains[domain])
-      })
-      // this.domainsPieDatasets = [{values: domains_dataset}]
-      this.domainsPieDatasetsTabular = domains_dataset // [{values: domains_dataset}]
-
-      // let hosts_dataset = []
-      // Array.each(this.hostsPieLabels, function (host) {
-      //   // this.hostsPieDatasets
-      //   hosts_dataset.push(count_hosts[host])
-      // })
-
-      this.hostsPieDatasets = [count_hosts]
-      this.dispositionDatasets = [count_disposition]
-      // this.hostsPieDatasets = [{values: hosts_dataset}]
-      // this.hostsPieDatasetsTabular = hosts_dataset // [{values: hosts_dataset}]
-
-      debug('dmarc_data domains', this.domainsPieLabels, count_domains, domains_dataset)
-      // debug('dmarc_data hosts', this.hostsPieLabels, count_hosts, hosts_dataset)
-    }
+    // size_data: function (val) {
+    // debug('size_data', val)
+    //   let count_domains = {}
+    //   let count_hosts = {}
+    //   let count_disposition = {none: 0, quarantine: 0, reject: 0}
+    //   this.total_records_count = 0
+    //   this.total_ips = []
+    //   this.domainsPieLabels = []
+    //   this.total_diposition_count = 0
+    //
+    //   Array.each(val, function (row) {
+    //     let domain = row.metadata.domain
+    //     let host = row.metadata.host
+    //
+    //     count_disposition.none += (row.data.records && row.data.records.none) ? row.data.records.none.length : 0
+    //     count_disposition.quarantine += (row.data.records && row.data.records.quarantine) ? row.data.records.quarantine.length : 0
+    //     count_disposition.reject += (row.data.records && row.data.records.reject) ? row.data.records.reject.length : 0
+    //
+    //     Object.each(row.data.records, function (disposition) {
+    //       Array.each(disposition, function (record) {
+    //         this.total_records_count += record.count
+    //         this.total_ips.combine([ record.ip])
+    //       }.bind(this))
+    //     }.bind(this))
+    //
+    //     if (!count_domains[domain]) count_domains[domain] = 0
+    //     count_domains[domain]++
+    //     this.domainsPieLabels.combine([domain])
+    //
+    //     if (host && host !== undefined && host !== null) {
+    //       if (!count_hosts[host]) count_hosts[host] = 0
+    //       count_hosts[host]++
+    //       // this.hostsPieLabels.combine([host])
+    //     }
+    //   }.bind(this))
+    //
+    //   this.total_diposition_count += count_disposition.none + count_disposition.quarantine + count_disposition.reject
+    //   this.total_hosts_count = Object.keys(count_hosts).length
+    //   this.total_domains_count = Object.keys(count_domains).length
+    //
+    //   this.domainsPieLabels.sort()
+    //   // this.hostsPieLabels.sort()
+    //
+    //   let domains_dataset = []
+    //   Array.each(this.domainsPieLabels, function (domain) {
+    //     domains_dataset.push(count_domains[domain])
+    //   })
+    //   // this.domainsPieDatasets = [{values: domains_dataset}]
+    //   this.domainsPieDatasetsTabular = domains_dataset // [{values: domains_dataset}]
+    //
+    //   // let hosts_dataset = []
+    //   // Array.each(this.hostsPieLabels, function (host) {
+    //   //   // this.hostsPieDatasets
+    //   //   hosts_dataset.push(count_hosts[host])
+    //   // })
+    //
+    //   this.hostsPieDatasets = [count_hosts]
+    //   this.dispositionDatasets = [count_disposition]
+    //   // this.hostsPieDatasets = [{values: hosts_dataset}]
+    //   // this.hostsPieDatasetsTabular = hosts_dataset // [{values: hosts_dataset}]
+    //
+    //   debug('size_data domains', this.domainsPieLabels, count_domains, domains_dataset)
+    //   // debug('size_data hosts', this.hostsPieLabels, count_hosts, hosts_dataset)
+    // }
   },
   computed: {
+    treemap_key: function () {
+      debug('treemap_key', JSON.stringify(this.treemap))
+      return JSON.stringify(this.treemap)
+    },
+    treemap: function () {
+      let data = {
+        name: 'Size Treemap',
+        children: []
+      }
+      let hosts = {}
+      Array.each(this.size_data, function (report, index) {
+        // debug('treemap', report)
+        let host = report.metadata.host
+        let domain = report.metadata.domain
+        let user = domain.split('/')[0]
+        let install = domain.split('/')[1]
+        let ts = report.metadata.timestamp
+        if (!hosts[host]) hosts[host] = {}
+        if (!hosts[host][user]) hosts[host][user] = {}
+        if (!hosts[host][user][install] || ts > hosts[host][user][install].ts) {
+          hosts[host][user][install] = {
+            data: report.data,
+            timestamp: ts
+
+          }
+        }
+
+        // let _data = Object.merge(report.metadata, {
+        //   size: report.data,
+        //   user: report.metadata.domain.split('/')[0],
+        //   install: report.metadata.domain.split('/')[1]
+        // })
+        // data.push(_data)
+      })
+
+      if (Object.getLength(hosts) === 1) {
+        Object.each(hosts, function (host_data, host) {
+          // let child = {name: host, children: []}
+          Object.each(host_data, function (user_data, user) {
+            let host_child = {name: user, children: []}
+            Object.each(user_data, function (install_data, install) {
+              let user_child = {name: install, value: install_data.data}
+              host_child.children.push(user_child)
+            })
+            // child.children.push(host_child)
+            data.children.push(host_child)
+          })
+          // data.children.push(child)
+        })
+      } else {
+        Object.each(hosts, function (host_data, host) {
+          let child = {name: host, children: []}
+          Object.each(host_data, function (user_data, user) {
+            let host_child = {name: user, children: []}
+            Object.each(user_data, function (install_data, install) {
+              let user_child = {name: install, value: install_data.data}
+              host_child.children.push(user_child)
+            })
+            child.children.push(host_child)
+          })
+          data.children.push(child)
+        })
+      }
+
+      debug('treemap HOSTS', hosts, data)
+
+      return data
+    },
     rangeReportsTableData: function () {
       let data = []
-      Array.each(this.dmarc_data, function (report, index) {
+      Array.each(this.size_data, function (report, index) {
         let _data = Object.merge(report.metadata, {
-          none: (report.data.records && report.data.records.none) ? report.data.records.none.length : 0,
-          quarantine: (report.data.records && report.data.records.quarantine) ? report.data.records.quarantine.length : 0,
-          reject: (report.data.records && report.data.records.reject) ? report.data.records.reject.length : 0
+          size: report.data,
+          user: report.metadata.domain.split('/')[0],
+          install: report.metadata.domain.split('/')[1]
         })
         data.push(_data)
       })
-      debug('computed rangeReportsTableData', this.dmarc_data, data)
+      debug('computed rangeReportsTableData', this.size_data, data)
       return data
     },
-
-    // allDmarcSelected: {
-    //   get: function () {
-    //     if (this.selected_dmarc.length === 0) { return true }
-    //
-    //     return false
-    //   },
-    //   set: function (val) {
-    //     debug('allDmarcSelected', val)
-    //     if (val === true) {
-    //       this.$router.replace({ query: { ...this.$route.query, selected_dmarc: []}}).catch(err => { debug('allDmarcSelected set', err) })
-    //       this.selected_dmarc = []
-    //     }
-    //   }
-    // },
   },
   methods: {
+    formatSize: formatSize,
     roundHours: roundHours,
     setReportID: function (id) {
       debug('setReportID', id)
@@ -1152,12 +1206,12 @@ export default {
       return val
     },
     // setDmarc: function (val) {
-    //   this.$router.replace({ query: { ...this.$route.query, selected_dmarc: this.selected_dmarc}}).catch(err => { debug('setDmarc', err) })
+    //   this.$router.replace({ query: { ...this.$route.query, selected_size: this.selected_size}}).catch(err => { debug('setDmarc', err) })
     // },
     // setAllDmarc: function (val) {
     //   debug('setAllDmarc', val)
     //   // if (true) {
-    //   //   this.selected_dmarc = []
+    //   //   this.selected_size = []
     //   // }
     //   // // else{
     //   // //
@@ -1217,7 +1271,7 @@ export default {
 
         let template = Pipeline({
           input: {
-            // id: 'input.dmarc',
+            // id: 'input.size',
             id: this.id,
 
             clients: clients,

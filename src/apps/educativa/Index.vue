@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -11,7 +11,7 @@
 
 <script>
 import * as Debug from 'debug'
-const debug = Debug('apps:dmarc')
+const debug = Debug('apps:educativa')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 // import dmarcApp from '@apps/dmarc/Index'

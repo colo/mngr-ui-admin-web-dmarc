@@ -14,7 +14,7 @@ import Error from '../views/Error.vue'
 
 const routes = [
   {
-    path: '',
+    path: '/',
     // component: () => import('layouts/MainLayout.vue'),
     name: 'index',
     // component: () => import('@apps/start/Index.vue'),
@@ -36,7 +36,15 @@ const routes = [
       {
         path: 'size',
         name: 'EducativaSize',
+        redirect: { name: 'EducativaSizeInstalls' },
         component: () => import('@apps/educativa/size/Index.vue'),
+        children: [
+          {
+            path: 'installs',
+            name: 'EducativaSizeInstalls',
+            component: () => import('@apps/educativa/size/installs/Index.vue'),
+          },
+        ]
       },
     ]
   },

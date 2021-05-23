@@ -1,5 +1,5 @@
 import * as Debug from 'debug'
-const debug = Debug('apps:educativa:size:sources:store')
+const debug = Debug('apps:educativa:size:installs:sources:store')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 // const nginx_vhosts_error = {
