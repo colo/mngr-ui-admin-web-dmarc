@@ -150,27 +150,9 @@ const debug = Debug('components:dataTable')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 import jquery from 'jquery'
-// window.jQuery = jquery
-//
 import dt from 'datatables.net'
 import 'datatables.net-responsive/js/dataTables.responsive.js'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-pdfMake.vfs = pdfFonts.pdfMake.vfs
-
-import * as JSZip from 'jszip'
-window.JSZip = JSZip
-
-// import 'datatables.net-buttons-dt'
-// import 'datatables.net-buttons/js/dataTables.buttons.js'
-import 'datatables.net-buttons/js/dataTables.buttons.js'
-import 'datatables.net-buttons/js/buttons.colVis.js'
-import 'datatables.net-buttons/js/buttons.html5.js'
-import 'datatables.net-buttons/js/buttons.print.js'
-import 'datatables.net-buttons-dt/css/buttons.dataTables.css'
-// import 'datatables.net-buttons/js/buttons.flash.js'
 
 export default {
   name: 'dataTable',
@@ -222,15 +204,12 @@ export default {
   },
   mounted: function () {
     let self = this
-
     // $(document).ready(function () {
-
     self.table = $('#' + self.id).DataTable(self.options).columns.adjust()
-    if (self.options.buttons && self.options.buttons_element && document.getElementById(self.options.buttons_element)) {
-      // debug('APPEND BUTTONS', document.getElementById(self.options.buttons_element), $(self.options.buttons_element, self.table.table().container()))
-      self.table.buttons().container().appendTo(document.getElementById(self.options.buttons_element))
-    }
     if (self.options.responsive === true) { self.table.responsive.recalc() }
+
+    // .responsive.recalc()
+    // })
 
     if (this.groupColumn !== undefined) {
       // Order by the grouping
@@ -243,7 +222,6 @@ export default {
         }
       })
     }
-    // })
   },
   methods: {
     // close: function () {
@@ -434,5 +412,4 @@ export default {
 	.dt-center {
 		text-align: center;
 	} */
-
 </style>

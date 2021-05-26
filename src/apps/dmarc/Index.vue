@@ -264,6 +264,9 @@
 				</div>
 			</div>
 
+			<div id="reportTable_buttons">
+				<!-- <div class="badge mx-2 badge-primary">text</div> -->
+			</div>
 			<data-table id="reportTable" :options="reportTableOptions" :dataSet="reportTableData" />
 			<div id="JsonViewer">
 			</div>
@@ -275,6 +278,9 @@
 
 		<div class="card shadow-lg">
 			<div class="card-body">
+				<h2 class="card-title" id="rangeReportsTable_buttons">
+					<!-- <div class="badge mx-2 badge-primary">text</div> -->
+				</h2>
 				<data-table id="rangeReportsTable" :options="rangeReportsTableOptions" :dataSet="rangeReportsTableData" :groupColumn="0" />
 			</div>
 		</div>
@@ -538,6 +544,19 @@ export default {
 		* drawCallback needs to call "self.setReportID" so "rangeReportsTableOptions" are instantiated here
 		**/
     this.rangeReportsTableOptions = {
+      // 'dom': 'Blfrtip',
+      'buttons': [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5',
+        'print'
+        // {
+        //   extend: 'print',
+        //   className: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+        // }
+      ],
+      'buttons_element': 'rangeReportsTable_buttons',
       deferRender: true,
       // stateSave: true,
       responsive: true,
@@ -671,6 +690,20 @@ export default {
     }
 
     this.reportTableOptions = {
+      // 'dom': 'Blfrtip',
+      'buttons': [
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5',
+        'print'
+        // {
+        //   extend: 'print',
+        //   className: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+        // }
+      ],
+      'buttons_element': 'reportTable_buttons',
+
       deferRender: true,
       // stateSave: true,
       responsive: true,

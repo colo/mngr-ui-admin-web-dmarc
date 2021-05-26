@@ -15,12 +15,7 @@ module.exports = {
   },
   chainWebpack: config => {
     config.module
-			// .rule('datatables')
-			// 	.test(/[\/\\]node_modules[\/\\]datatables.net[\/\\]js[\/\\]jquery\.dataTables\.js$/)
-			// 	.use('imports-loader')
-			// 	.loader("imports-loader?this=>window")
-			// 	.end()
-      .rule('eslint')
+			.rule('eslint')
 	      .use('eslint-loader')
 	      .loader('eslint-loader')
 	      .tap(options => {
@@ -29,6 +24,12 @@ module.exports = {
 	        return options
 	      })
 				.end()
+			// .rule('datatables')
+			// 	.test(/datatables\.net(?!.*[.]css$).*/)
+			// 	.use('imports-loader')
+			// 		.loader('imports-loader?define=>false')
+			// 		.end()
+
 
   },
 
