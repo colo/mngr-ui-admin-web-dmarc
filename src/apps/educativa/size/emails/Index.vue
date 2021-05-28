@@ -573,12 +573,26 @@ export default {
           data: 'host',
         },
         {
+          title: 'Last Auth',
+          data: 'last_auth',
+          render: function (data, type, row, meta) {
+            // return format(data, 'E dd/MM/yyyy H:mm O')
+            if (type === 'display') {
+              // debug('table timestamp', data)
+              // return format(data, 'PPPP HH:MM', {locale: es})
+              return format(data, 'PPpp', {locale: es})
+            } else {
+              return data
+            }
+          }
+        },
+        {
           title: 'Time',
           data: 'timestamp',
           render: function (data, type, row, meta) {
             // return format(data, 'E dd/MM/yyyy H:mm O')
             if (type === 'display') {
-              debug('table timestamp', data)
+              // debug('table timestamp', data)
               // return format(data, 'PPPP HH:MM', {locale: es})
               return format(data, 'PPpp', {locale: es})
             } else {
@@ -642,7 +656,7 @@ export default {
       'columnDefs': [
         { 'visible': false, 'targets': 0 },
         {
-          targets: [1, 2, 3, 4],
+          targets: [1, 2, 3, 4, 5],
           className: 'dt-center'
         },
         // { 'visible': false, 'targets': 0 },
@@ -672,7 +686,7 @@ export default {
         api.column(0, {page: 'current'}).data().each(function (group, i) {
           if (last !== group) {
             $(rows).eq(i).before(
-              '<tr class="group"><td colspan="4">' + group + '</td></tr>'
+              '<tr class="group"><td colspan="5">' + group + '</td></tr>'
             )
 
             last = group
@@ -1071,7 +1085,7 @@ export default {
         if (!hosts[host][user]) hosts[host][user] = {}
         if (!hosts[host][user][install] || ts > hosts[host][user][install].ts) {
           hosts[host][user][install] = {
-            data: report.data,
+            data: report.data.size,
             timestamp: ts
 
           }
@@ -1122,7 +1136,8 @@ export default {
       let data = []
       Array.each(this.size_data, function (report, index) {
         let _data = Object.merge(report.metadata, {
-          size: report.data,
+          size: report.data.size,
+          last_auth: report.data.last_auth,
           user: report.metadata.domain.split('/')[0],
           install: report.metadata.domain.split('/')[1]
         })
