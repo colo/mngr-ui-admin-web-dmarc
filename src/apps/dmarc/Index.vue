@@ -456,7 +456,7 @@ export default {
       pipeline_id: ['input.dmarc.periodical'],
 
       id: 'input.dmarc.periodical',
-      path: 'all',
+      // path: 'all',
 
       // host: 'perseus',
       components: {

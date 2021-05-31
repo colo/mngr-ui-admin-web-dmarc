@@ -719,9 +719,10 @@ export default {
                   // }.bind(self))
 
                   EventBus.$emit('sent:' + emit_query.params.id, emit_query)
-                  app.io.emit('/', emit_query)
+                  let path = self.path || '/'
+                  app.io.emit(path, emit_query)
 
-                  debug('FUNC EMIT', emit_query.params.id)
+                  debug('FUNC EMIT', path, emit_query.params.id)
                 }
               }
 

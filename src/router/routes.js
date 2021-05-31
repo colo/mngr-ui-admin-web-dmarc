@@ -28,6 +28,20 @@ const routes = [
     component: () => import('@apps/hosts/Index.vue'),
   },
   {
+    path: '/logs',
+    name: 'Logs',
+    redirect: { name: 'LogsNginx' },
+    component: () => import('@apps/logs/Index.vue'),
+    children: [
+      {
+        path: 'nginx',
+        name: 'LogsNginx',
+        // redirect: { name: 'LogsNginxInstalls' },
+        component: () => import('@apps/logs/nginx/Index.vue'),
+      },
+    ]
+  },
+  {
     path: '/educativa',
     name: 'Educativa',
     redirect: { name: 'EducativaSize' },

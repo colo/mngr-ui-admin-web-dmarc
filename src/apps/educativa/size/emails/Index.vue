@@ -433,7 +433,7 @@ export default {
       pipeline_id: ['input.educativa.size.emails.periodical'],
 
       id: 'input.educativa.size.emails.periodical',
-      path: 'all',
+      // path: 'all',
 
       // host: 'perseus',
       components: {
@@ -580,7 +580,11 @@ export default {
             if (type === 'display') {
               // debug('table timestamp', data)
               // return format(data, 'PPPP HH:MM', {locale: es})
-              return format(data, 'PPpp', {locale: es})
+              let date = 'Never logged in'
+              try {
+                date = format(data, 'PPpp', {locale: es})
+              } catch (e) {}
+              return date
             } else {
               return data
             }

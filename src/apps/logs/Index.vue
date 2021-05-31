@@ -11,13 +11,13 @@
 
 <script>
 import * as Debug from 'debug'
-const debug = Debug('apps:educativa')
+const debug = Debug('apps:logs')
 debug.log = console.log.bind(console) // don't forget to bind to console!
 
 // import dmarcApp from '@apps/dmarc/Index'
 
 export default {
-  name: 'AppEducativa',
+  name: 'AppLogs',
 
   components: {
     // dmarcApp

@@ -433,7 +433,7 @@ export default {
       pipeline_id: ['input.educativa.size.installs.periodical'],
 
       id: 'input.educativa.size.installs.periodical',
-      path: 'all',
+      // path: 'all',
 
       // host: 'perseus',
       components: {
